@@ -4,7 +4,7 @@
   <subtitle><![CDATA[here we go]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-10-02T00:54:00.000Z</updated>
+  <updated>2015-10-02T01:02:00.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/10/02/mac-osx-capitan/"/>
     <id>http://yoursite.com/2015/10/02/mac-osx-capitan/</id>
     <published>2015-10-01T23:26:19.000Z</published>
-    <updated>2015-10-02T00:54:00.000Z</updated>
+    <updated>2015-10-02T01:02:00.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前奏">前奏</h2>
 <p>总所周知，<a href="#">app store</a> 国内下载速度实在不敢恭维，然而系统升级一般没个一天是搞不定的（心中有一万只草泥马在奔腾ಥ_ಥ）。
   <br>但是，你们天真地以为这就能难倒技术控了么？23333…</p>
@@ -85,7 +85,7 @@
 <figure class="highlight js">
   <table>
     <tr>
-      <td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"><span class="comment">// 映射资源</span></span><br><span class="line">app.use(<span class="string">'/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/'</span>, express.static(path.resolve(<span class="string">'.'</span>, <span class="string">'static'</span>)));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">80</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Server Listen on port 80."</span>);</span><br></pre></td>
+      <td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"><span class="comment">// 映射资源</span></span><br><span class="line">app.use(<span class="string">'/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/'</span>, express.static(path.resolve(<span class="string">'.'</span>, <span class="string">'static'</span>)));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">80</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Server Listen on port 80."</span>);</span><br></pre></td>
     </tr>
   </table>
 </figure>
@@ -99,7 +99,8 @@
     </table>
   </figure>
 </p>
-<p>此时你可以在浏览器中测试，在地址栏输入我们抓取的苹果官方的下载链接，如果一切配置都正确，你应该会看到百兆的下载速度。</p>
+<p>此时你可以在浏览器中测试，在地址栏输入我们抓取的苹果官方的下载链接，如果一切配置都正确，你应该会看到百兆的下载速度。
+  <br><a href="http://osxapps.itunes.apple.com/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/ftk3252456602304584541.pkg" target="_blank" rel="external">http://osxapps.itunes.apple.com/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/ftk3252456602304584541.pkg</a></p>
 <img src="/2015/10/02/mac-osx-capitan/pkg.jpeg" alt="[下载速度]" title="[下载速度]">
 <h3 id="更新_El_Capitan">更新 El Capitan</h3>
 <p>打开 App Store 找到 OS X El Capitan 的更新按钮, 点击更新按钮。稍等片刻，下载完成后就会弹出安装页面。
