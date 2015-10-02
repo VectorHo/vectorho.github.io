@@ -4,7 +4,7 @@
   <subtitle><![CDATA[here we go]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-09-29T06:07:33.000Z</updated>
+  <updated>2015-10-02T00:43:17.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,127 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[OS X El Capitan 快速更新]]></title>
+    <link href="http://yoursite.com/2015/10/02/mac-osx-capitan/"/>
+    <id>http://yoursite.com/2015/10/02/mac-osx-capitan/</id>
+    <published>2015-10-01T23:26:19.000Z</published>
+    <updated>2015-10-02T00:43:17.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="前奏">前奏</h2>
+<p>总所周知，<a href="#">app store</a> 国内下载速度实在不敢恭维，然而系统升级一般没个一天是搞不定的（心中有一万只草泥马在奔腾ಥ_ಥ）。
+  <br>但是，你们天真地以为这就能难倒技术控了么？23333…</p>
+<p>今天小弟就给看官们带来一次全新体验。</p>
+<h2 id="原理">原理</h2>
+<p>抓取苹果官方下载链接，离线到第三方服务器分流。再使用第三方下载工具下载系统<code>.pkg</code>文件。搭建本地静态文件<code>server</code>，
+  <br>将苹果官方的下载地址解析到本地的服务器，从而实现快速下载安装。</p>
+<p>抓取工具首推charles（本人和charles不存在隶属关系^.^）。</p>
+<p><code>ps</code>：以上适用于 El Capitan 更新慢的用户，有百兆光纤的用户可忽略。</p>
+<a id="more"></a>
+<h2 id="实践">实践</h2>
+<p>相信实践出真理。</p>
+<h3 id="抓取官方下载链接">抓取官方下载链接</h3>
+<p>由于前段时间的 Xcode Ghost 影响，不能再信任第三方的网盘， 通过 Charles 抓取到的链接如下：
+  <br><a href="http://osxapps.itunes.apple.com/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/ftk3252456602304584541.pkg" target="_blank" rel="external">http://osxapps.itunes.apple.com/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/ftk3252456602304584541.pkg</a></p>
+<p><code>ps</code>：为了安全性最好自己抓包获取此下载地址，后面的 hostname、 path 和自己抓取的链接对应。</p>
+<h3 id="下载-pkg文件">下载.pkg文件</h3>
+<p>抓取到苹果官方的下载链接后，可以先离线到百度云分流我们可以通过第三方下载工具下载 .pkg 文件，下载工具自备。
+  <br>下载完成后文件是无法直接安装的，所以我们要准备欺骗 App Store 把静态文件 server 映射到本地。
+  <br>下面要做的就是搭建本地静态文件 server 替换苹果官方的 server。</p>
+<h3 id="搭建静态文件server">搭建静态文件server</h3>
+<p>搭建本地静态资源服务的方法太多了，e.g. 现成的就有nginx、apache；程序有 nodejs、python、java etc.
+  <br>本教程选择熟悉的<a href="http://expressjs.com/" target="_blank" rel="external">express</a>，只需一个中间件即可搞定，搭建node环境，不再赘述。</p>
+<h3 id="分析url">分析url</h3>
+<p>url格式：
+  <br>
+  <figure class="highlight avrasm">
+    <table>
+      <tr>
+        <td class="code"><pre><span class="line"><span class="label">protocol:</span>// hostname[:port]/path[?query]<span class="preprocessor">#hash</span></span><br></pre></td>
+      </tr>
+    </table>
+  </figure>
+</p>
+<p>在这里我们只需要找到 hostname 和 path；</p>
+<figure class="highlight cpp">
+  <table>
+    <tr>
+      <td class="code"><pre><span class="line">hostname : osxapps.itunes.apple.com</span><br><span class="line">path     : /apple-assets-us-<span class="built_in">std</span>-<span class="number">000001</span>/Purple3/v4/<span class="number">74</span>/d2/<span class="number">82</span>/<span class="number">74</span>d28291-<span class="number">9</span>db9-<span class="number">7</span>ae2-<span class="number">305</span>d-<span class="number">9</span>b8b3f5fd463/</span><br></pre></td>
+    </tr>
+  </table>
+</figure>
+<h3 id="修改hosts">修改hosts</h3>
+<figure class="highlight bash">
+  <table>
+    <tr>
+      <td class="code"><pre><span class="line">sudo vi /etc/hosts</span><br></pre></td>
+    </tr>
+  </table>
+</figure>
+<img src="/2015/10/02/mac-osx-capitan/hosts.png" alt="[hosts]" title="[hosts]">
+<p>如此一来，系统 DNS 将把 osxapps.itunes.apple.com 解析到本地。</p>
+<h3 id="创建express项目">创建express项目</h3>
+<p>万事俱备，只欠exprss。</p>
+<figure class="highlight bash">
+  <table>
+    <tr>
+      <td class="code"><pre><span class="line">$ <span class="built_in">cd</span> your-project // 任意名称</span><br><span class="line">$ mkdir static</span><br><span class="line">$ npm install express</span><br></pre></td>
+    </tr>
+  </table>
+</figure>
+<p>手动将下载好的.pkg文件拷贝到项目的static文件夹，在项目文件夹根目录创建server.js：</p>
+<figure class="highlight js">
+  <table>
+    <tr>
+      <td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"><span class="comment">// 映射资源</span></span><br><span class="line">app.use(<span class="string">'/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/'</span>, express.static(path.resolve(<span class="string">'.'</span>, <span class="string">'static'</span>)))</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">80</span>);</span><br><span class="line"><span class="built_in">console</span>.log <span class="string">"Server Listen on port 80."</span></span><br></pre></td>
+    </tr>
+  </table>
+</figure>
+<p>启动程序
+  <br>
+  <figure class="highlight bash">
+    <table>
+      <tr>
+        <td class="code"><pre><span class="line">$ <span class="built_in">cd</span> your-project</span><br><span class="line">$ sudo node server.js</span><br></pre></td>
+      </tr>
+    </table>
+  </figure>
+</p>
+<p>此时你可以在浏览器中测试，在地址栏输入我们抓取的苹果官方的下载链接，如果一切配置都正确，你应该会看到百兆的下载速度。</p>
+<img src="/2015/10/02/mac-osx-capitan/pkg.jpeg" alt="[下载速度]" title="[下载速度]">
+<h3 id="更新_El_Capitan">更新 El Capitan</h3>
+<p>打开 App Store 找到 OS X El Capitan 的更新按钮, 点击更新按钮。稍等片刻，下载完成后就会弹出安装页面。
+  <br>安装过程需要一段时间,冲杯咖啡等待即可。</p>
+<p>enjoy yourself …</p>
+<h3 id="还原hosts">还原hosts</h3>
+<p>记得一定要还原hosts设置，不然以后 App Store 就更新不了，方法就是删除掉上文配置的映射，保存即可。</p>
+<h2 id="引申">引申</h2>
+<p>如果有vps的话，也下载到自己的vps上，然后将苹果的下载地址解析到vps ，原理相通。</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E7%AC%A6" target="_blank" rel="external">URL</a>
+  <br><a href="http://coolshell.cn/articles/1480.html" target="_blank" rel="external">SimpleHTTPServer</a>
+  <br><a href="https://zh.wikipedia.org/wiki/Hosts%E6%96%87%E4%BB%B6" target="_blank" rel="external">hosts 文件</a></p>
+<hr>
+<p>博客：<a href="https://vectorho.github.io" target="_blank" rel="external">https://vectorho.github.io</a>
+  <br>作者：<a href="https://vectorho.github.io/about/" target="_blank" rel="external">Vector Ho</a></p>]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="前奏">前奏</h2>
+<p>总所周知，<a href="#">app store</a> 国内下载速度实在不敢恭维，然而系统升级一般没个一天是搞不定的（心中有一万只草泥马在奔腾ಥ_ಥ）。
+  <br>但是，你们天真地以为这就能难倒技术控了么？23333…</p>
+<p>今天小弟就给看官们带来一次全新体验。</p>
+<h2 id="原理">原理</h2>
+<p>抓取苹果官方下载链接，离线到第三方服务器分流。再使用第三方下载工具下载系统<code>.pkg</code>文件。搭建本地静态文件<code>server</code>，
+  <br>将苹果官方的下载地址解析到本地的服务器，从而实现快速下载安装。</p>
+<p>抓取工具首推charles（本人和charles不存在隶属关系^.^）。</p>
+<p><code>ps</code>：以上适用于 El Capitan 更新慢的用户，有百兆光纤的用户可忽略。</p>]]>
+    
+    </summary>
+    
+      <category term="osx" scheme="http://yoursite.com/tags/osx/"/>
+    
+      <category term="mac" scheme="http://yoursite.com/categories/mac/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Tips For npm — npm publish]]></title>
