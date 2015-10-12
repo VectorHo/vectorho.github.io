@@ -136,7 +136,7 @@
     <link href="http://yoursite.com/2015/10/11/web-nodejs-debug/"/>
     <id>http://yoursite.com/2015/10/11/web-nodejs-debug/</id>
     <published>2015-10-11T06:44:12.000Z</published>
-    <updated>2015-10-11T16:15:11.000Z</updated>
+    <updated>2015-10-12T07:50:13.000Z</updated>
     <content type="html"><![CDATA[<p><a href="https://nodejs.org" target="_blank" rel="external">Node.js</a>是什么？Node.js适合什么场景？多少公司已用于生产环境？Node.js靠不靠谱？这个话题应该无可厚非了，如果今天还在质疑Node.js的能力，相信它一定不是一家面向互联网公司。
   <br>自 2009 年<code>Ryan Dahl</code>发布后，到现在已经六个年头了。人红是非多，先后经历了ruby、php web擂台之战，后因某些原因派生出了<a href="https://iojs.org" target="_blank" rel="external">iojs</a>这个兄弟；分久必合，大势所趋。最近两兄弟又合体了，衍生出了Node.js V4.0版本，官方又解释这个版本是Node.js V1.0 新版本，原班人马重新回归。关于1.0新时代，有兴趣的童鞋请参考详情：<a href="http://mp.weixin.qq.com/s?__biz=MzAxMTU0NTc4Nw==&amp;mid=239799758&amp;idx=1&amp;sn=9762fe70f14829e7bd42fb1f35a6362e&amp;scene=23&amp;srcid=1011W2vcX80qGPXQEhjJAeB5#rd" target="_blank" rel="external">http://mp.weixin.qq.com/s?__biz=MzAxMTU0NTc4Nw==&amp;mid=239799758&amp;idx=1&amp;sn=9762fe70f14829e7bd42fb1f35a6362e&amp;scene=23&amp;srcid=1011W2vcX80qGPXQEhjJAeB5#rd</a>。
   <br>btw，po一个js全栈图：
@@ -286,7 +286,7 @@
   <figure class="highlight js">
     <table>
       <tr>
-        <td class="code"><pre><span class="line">➜  $ node-debug --nodejs xx.coffee</span><br></pre></td>
+        <td class="code"><pre><span class="line">➜  $ coffee --nodejs --debug xx.coffee</span><br></pre></td>
       </tr>
     </table>
   </figure>
@@ -316,9 +316,7 @@
 <p>只有真正理解了一门语言提供的debug技术的原理，才能更加熟练地使用它来调试程序。</p>
 <p>参考：
   <br><a href="https://nodejs.org" target="_blank" rel="external">https://nodejs.org</a>
-  <br><a href="https://iojs.org" target="_blank" rel="external">https://iojs.org</a>
-  <br><a href="http://i5ting.github.io/node-debug-tutorial" target="_blank" rel="external">http://i5ting.github.io/node-debug-tutorial</a>
-  <br><a href="http://www.barretlee.com/blog/2015/10/07/debug-nodejs-in-command-line/" target="_blank" rel="external">http://www.barretlee.com/blog/2015/10/07/debug-nodejs-in-command-line/</a></p>
+  <br><a href="https://iojs.org" target="_blank" rel="external">https://iojs.org</a></p>
 <hr>
 <p>博客：<a href="https://vectorho.github.io" target="_blank" rel="external">https://vectorho.github.io</a>
   <br>作者：<a href="https://vectorho.github.io/about/" target="_blank" rel="external">Vector Ho</a></p>]]></content>
