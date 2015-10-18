@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title><![CDATA[VectorHo]]></title>
-  <subtitle><![CDATA[here we go]]></subtitle>
+  <subtitle><![CDATA[fsd]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-10-11T16:15:17.000Z</updated>
+  <updated>2015-10-18T08:24:54.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,12 +15,163 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Hash简介]]></title>
+    <link href="http://yoursite.com/2015/10/17/algorithm-hash/"/>
+    <id>http://yoursite.com/2015/10/17/algorithm-hash/</id>
+    <published>2015-10-17T14:53:06.000Z</published>
+    <updated>2015-10-18T08:24:54.000Z</updated>
+    <content type="html"><![CDATA[<p>英文原文：<a href="http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/" target="_blank" rel="external">http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/</a></p>
+<p>大家都知道每种编程语言里都提供Hash结构，不过对于Hash的知识，大家是不是觉得很抽象？
+  <br>Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不一样的收获。
+  <br>到底哈希函数是CPU密集型的并且应该维持而优化。然而，大部分哈希表的内部机制只关心内存效率和I/O访问，本文仅仅是<a href="http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/" target="_blank" rel="external">《Implementing a Key-Value Store》</a>读书笔记，
+  <br>来看看哈希表三种的实现，既有内存中的又有硬盘上的，并看看数据是怎么组织和访问的。</p>
+<h2 id="哈希表">哈希表</h2>
+<blockquote>
+  <p>哈希表可以认为是人类所知最为重要的数据结构。</p>
+  <p>— 斯蒂夫 耶奇</p>
+</blockquote>
+<h3 id="哈希表简介">哈希表简介</h3>
+<p>哈希表可以高效的访问关联数据。每个entry都有一对对应的key和value，并且能仅通过key来快速的取回和赋值。
+  <br><code>为了达到这个目的，把key通过哈希函数进行哈希，以将key从原始形式转换为整数。
+此整数之后作为索引来得到要访问的entry所在的bucket在bucket数组中的地址。很多key可以被哈希为相同的值，这表示这些key在bucket数组中回出现冲突。</code>有多种方法解决冲突，e.g. 使用链表的分离链表（separate chaining 亦称开链或单独链表）或自平衡二叉树或线性或者二次探测的开放寻址。
+  <br>正常情况下，Hash算法输出分布越均匀越好。</p>
+<p>从现在开始，我默认你知道什么是哈希表。如果你认为自己需要温习一下知识，Wikipedia的“Hash table”词条<a href="#">[1]</a>（及其底部的扩展链接一节）和Cormen 等人写的Introduction to Algorithms一书中Hash table一章<a href="#">[2]</a>都是很好的参考文献。</p>
+<h3 id="哈希函数">哈希函数</h3>
+<blockquote>
+  <p>hash(a) -&gt; xxxx 😄</p>
+</blockquote>
+<p>哈希函数的选择相当重要。一个好哈希函数的基本需求是输出的哈希值比较均匀。这样可以使碰撞的发生最小化，同时使得各个bucket中碰撞的条目比较平均。</p>
+<p>哈希函数实现算法有很多，除非你确切的知道数据会变成什么样子，最安全的方法是找一个能够将随机数据分布均匀的哈希函数，如果可能的话符合雪崩效应<a href="#">[3]</a>。
+  <br>有少数人对哈希函数做过比较<a href="#">[4]</a> <a href="#">[5]</a> <a href="#">[6]</a> <a href="#">[7]</a>，
+  <br>而他们的结论是MurmurHash3 <a href="#">[8]</a>和CityHash <a href="#">[9]</a> 是在目前最好的哈希函数。</p>
+<h2 id="实现算法">实现算法</h2>
+<p>在下述三个哈希表库的描述中，我的通用示例entry是用城市名作为key其各自的GPS坐标作为value。
+  <br><img src="/2015/10/17/algorithm-hash/hash1.jpg" alt="[3种hash算法]" title="[3种hash算法]"></p>
+<h3 id="TR1的_unordered_map">TR1的 unordered_map</h3>
+<p>TR1的unordered_map提供了一个用链表（分离链）解决碰撞的哈希表。
+  <br>Bucket数组位于堆中，并且基于哈希表的负载系数自动调整因子大小。而bucket的链表则是用叫做_Hash_node的节点结构体创建。</p>
+<p><code>ps：用hash(key)算出桶号，为了解决冲突，算出key冲突的全部在用相同桶号用一个链表结构存着；
+利用key存取道理都是一样：hashcode定位了桶，key本身定位了链表结构中的某个entry。
+java里的hashMap就是这样结构，负载因子是用来决定桶bucket大小的，默认是0.75 ...</code></p>
+<figure class="highlight js">
+  <table>
+    <tr>
+      <td class="code"><pre><span class="line"><span class="comment">/* from gcc-4.8.0/libstdc++-v3/include/tr1/hashtable_policy.h */</span></span><br><span class="line">template</span><br><span class="line">  struct _Hash_node&lt;_Value, <span class="literal">false</span>&gt; &#123;</span><br><span class="line">    _Value       _M_v;</span><br><span class="line">    _Hash_node*  _M_next;</span><br><span class="line">  &#125;;</span><br></pre></td>
+    </tr>
+  </table>
+</figure>
+<p>如果键和值都是整型，其可以直接存储在_M_v结构体中。否则将会存储指针，同时需要额外的内存。
+  <br>Bucket数组是在堆中一次性分配的，但并不分配节点的空间，节点的空间是通过各自调用C++内存分配器来分配的。</p>
+<figure class="highlight js">
+  <table>
+    <tr>
+      <td class="code"><pre><span class="line"><span class="comment">/* from gcc-4.8.0/libstdc++-v3/include/tr1/hashtable.h */</span></span><br><span class="line">Node* _M_allocate_node(<span class="keyword">const</span> value_type&amp; __v)</span><br><span class="line">    &#123;</span><br><span class="line">      _Node* __n = _M_node_allocator.allocate(<span class="number">1</span>);</span><br><span class="line">      __try</span><br><span class="line">    &#123;</span><br><span class="line">      _M_get_Value_allocator().construct(&amp;__n-&gt;_M_v, __v);</span><br><span class="line">      __n-&gt;_M_next = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">return</span> __n;</span><br><span class="line">    &#125;</span><br><span class="line">      __catch(...)</span><br><span class="line">    &#123;</span><br><span class="line">      _M_node_allocator.deallocate(__n, <span class="number">1</span>);</span><br><span class="line">      __throw_exception_again;</span><br></pre></td>
+    </tr>
+  </table>
+</figure>
+<p>因为这些节点是各自分配的，分配过程中可能浪费大量的内存。这取决于编译器和操作系统使用的内存分配过程。我甚至还没说每次分配中系统执行的调用。SGI哈希表的原始实现为这些节点做了一些资源预分配工作，但这个方法没有保留在TR1的unordered_map实现中。</p>
+<p>下图展示了TR1中unordered_map的内存和访问模式。当我们访问key是“Johannesburg”相关的GPS坐标的时候会发生什么。这个键名被哈希并映射到了bucket #0。
+  <br>在那我们跳到了此bucket的链表的第一个节点（bucket#0左边的橙色箭头），我们可以访问堆内存中存储了键“Johannesburg”所属数据的内存区域（节点右侧的黑色箭头）。
+  <br>如果key所指向的第一个节点不可用，就必须遍历其他的节点来访问。</p>
+<p>至于CPU性能，不能指望所有的数据都在处理器的同一个缓存行中。实际上，基于bucket数组的大小，初始bucket和初始节点不会在同一个缓存行中，而和节点相关的外部数据同样不太可能在同一个缓存行中。
+  <br>而随后的节点机器相关数据同样不会在同一个缓存行中并且需要从RAM中取回。如果你不熟悉CPU优化和缓存行，维基上的“CPU Cache”文章是一个很好的介绍<a href="#">20</a>。
+  <br><img src="/2015/10/17/algorithm-hash/hash2.jpg" alt="[unordered_map内存结构]" title="[unordered_map内存结构]"></p>
+<h3 id="SparseHash的_dense_hash_map">SparseHash的 dense_hash_map</h3>
+<p>SparseHash库提供了两个哈希表实现，sparse_hash_map和dense_hash_map。sparse_hash_map在低成本下提供了出色的内存占用，并使用一个特定的数据结构sparsetable来打到这个目的。在SparseHash的“Implementation notes”页面<a href="#">19</a>可以找到更多关于sparsetables 和sparse_hash_map的信息。在此我只讨论dense_hash_map。</p>
+<p>dense_hash_map用二次内部探测处理碰撞。和unordered_map一样，bucket数组也是在堆中一次分配，并基于哈希表的负载因子调整大小。bucket数组的元素是std::pair的实例，其中Key和T分别是键名和键值的模版参数。在64位架构下储存字符串的时候，pair的实例大小是16字节。</p>
+<p>下图是dense_hash_map内存和访问模式的展示。如果我们要寻找“Johannesburg”的坐标，我们一开始会进入bucket #0，其中有“Paris”（译注：图上实际应为“Dubai”）的数据（bucket #0右侧的黑色箭头）。因此必须探测然后跳转到bucket (i + 1) = (0 + 1) = 1（bucket #0左侧的橙色箭头），然后就能在bucket #1中找到“Johannesburg”的数据。这看上去和unordered_map中做的事情差不多，但其实完全不同。当然，和unordered_map一样，键名和键值都必须存储在分配于堆中的内存，这将导致对键名和键值的寻找会使缓存行无效化。但为碰撞的条目寻找一个bucket相对较快一些。实际上既然每个pair都是16字节而大多数处理器上的缓存行都是64字节，每次探测就像是在同一个缓存行上。这将急剧提高运算速度，与之相反的是unordered_map中的链表需要在RAM中跳转以寻找余下的节点。</p>
+<p>二次内部探测提供的缓存行优化使得dense_hash_map成为所有内存哈希性能测试中的赢家（至少是在我目前读过的这些中）。你应该花点时间来看看Nick Welch的文章“Hash Table Benchmarks” <a href="#">10</a>。
+  <br><img src="/2015/10/17/algorithm-hash/hash3.jpg" alt="[dense_hash_map内存结构]" title="[dense_hash_map内存结构]"></p>
+<h3 id="Kyoto_Cabinet的_HashDB">Kyoto Cabinet的 HashDB</h3>
+<p>Kyoto Cabinet实现了很多数据结构，其中就有哈希表。这个哈希表HashDB虽然有一个选项可以用来把他用作代替std::map的内存哈希表，但其是设计用于在硬盘上持久化的。哈希表的元数据和用户数据一起用文件系统依次存储在硬盘上唯一的文件中。
+  <br>Kyoto Cabinet使用每个bucket中独立的二叉树处理碰撞。Bucket数组长度固定且不改变大小，无视负载因子的状态。这是Kyoto Cabinet的哈希表实现的主要缺陷。实际上，如果数据库创建的时候定义的bucket数组的长度低于实际需求，当条目开始碰撞的时候性能会急剧下降。</p>
+<p>允许硬盘上的哈希表实现改变bucket数组大小是很难的。首先，其需要bucket数组和条目存储到两个不同的文件中，其大小会各自独立的增长。第二，因为调整bucket数组大小需要将键名重新哈希到新bucket数组的新位置，这需要从硬盘中读取所有条目的键名，这对于相当大的数据库来说代价太高以至于几乎不可能。避免这种重新哈希过程的一种方法是，存储哈希后键名的时候每个条目预留4或8个字节（取决于哈希是长度32还是64 bit）。因为这些麻烦事，固定长度的bucket数组更简单，而Kyoto Cabinet中采用了这个方法。</p>
+<p>下图显示出文件中存储的一个HashDB的结构。我是从calc_meta()方法的代码，和kchashdb.h尾部HashDB类中属性的注释中得到的这个内部结构。此文件以如下几个部分组织：</p>
+<ul>
+  <li>头部有数据库所有的元数据</li>
+  <li>包含数据区域中可用空间的空块池</li>
+  <li>bucket数组</li>
+  <li>记录（数据区域）</li>
+</ul>
+<p>一条记录包含一个条目（键值对），以及此独立链的二叉树节点。这里是Record结构体：
+  <br>
+  <figure class="highlight js">
+    <table>
+      <tr>
+        <td class="code"><pre><span class="line"><span class="comment">/* from kyotocabinet-1.2.76/kchashdb.h */</span></span><br><span class="line"><span class="comment">/*** Record data.*/</span></span><br><span class="line">  struct Record &#123;</span><br><span class="line">    int64_t off;                         </span><br><span class="line"><span class="comment">///&lt; offset</span></span><br><span class="line">    size_t rsiz;                         </span><br><span class="line"><span class="comment">///&lt; whole size</span></span><br><span class="line">    size_t psiz;                         </span><br><span class="line"><span class="comment">///&lt; size of the padding</span></span><br><span class="line">    size_t ksiz;                         </span><br><span class="line"><span class="comment">///&lt; size of the key</span></span><br><span class="line">    size_t vsiz;                         </span><br><span class="line"><span class="comment">///&lt; size of the value</span></span><br><span class="line">    int64_t left;                        </span><br><span class="line"><span class="comment">///&lt; address of the left child record</span></span><br><span class="line">    int64_t right;                       </span><br><span class="line"><span class="comment">///&lt; address of the right child record</span></span><br><span class="line">    <span class="keyword">const</span> char* kbuf;                    </span><br><span class="line"><span class="comment">///&lt; pointer to the key</span></span><br><span class="line">    <span class="keyword">const</span> char* vbuf;                    </span><br><span class="line"><span class="comment">///&lt; pointer to the value</span></span><br><span class="line">    int64_t boff;                        </span><br><span class="line"><span class="comment">///&lt; offset of the body</span></span><br><span class="line">    char* bbuf;                          </span><br><span class="line"><span class="comment">///&lt; buffer of the body</span></span><br><span class="line">  &#125;;</span><br></pre></td>
+      </tr>
+    </table>
+  </figure>
+</p>
+<p>下图可以看到记录在硬盘上的组织。我从kchashdb.h中的write_record()方法中得到组织方法。注意其和Record结构体不同：保存在硬盘上的目标是最小化硬盘占用，然而结构体的目标是使记录在编程的时候用起来比较方便。下图的所有变量都有固定长度，除了key、value、 和padding，其当然是取决于数据条目中数据的尺寸。变量left 和right是二叉树节点的一部分，储存文件中其他记录的offset。
+  <br><img src="/2015/10/17/algorithm-hash/hash4.jpg" alt="[HashDB结构]" title="[HashDB结构]">
+  <br><img src="/2015/10/17/algorithm-hash/hash5.jpg" alt="[record结构]" title="[record结构]"></p>
+<p>上图如果我们要访问键名”Paris”的键值，一开始要获得相关bucket的初始记录，在本例中是bucket #0。然后跳转到此bucket二叉树的头节点（bucket #0右侧的橙色箭头），其保存键名为”Johannesburg”的数据。键名为”Paris”的数据需要通过当前节点的右侧节点来访问（”Johannesburg”记录右侧的黑色箭头）。二叉树需要一个可比较的类型来对节点分类。这里用的可比较类型是用fold_hash()方法将哈希过的键名缩减得到的。
+  <br>
+  <figure class="highlight js">
+    <table>
+      <tr>
+        <td class="code"><pre><span class="line"><span class="comment">/* from kyotocabinet-1.2.76/kchashdb.h */</span></span><br><span class="line">uint32_t fold_hash(uint64_t hash) &#123;</span><br><span class="line">  _assert_(<span class="literal">true</span>);</span><br><span class="line">  <span class="keyword">return</span> (((hash &amp; <span class="number">0xffff000000000000</span>ULL) &gt;&gt; <span class="number">48</span>) | ((hash &amp; <span class="number">0x0000ffff00000000</span>ULL) &gt;&gt; <span class="number">16</span>)) ^</span><br><span class="line">      (((hash &amp; <span class="number">0x000000000000ffff</span>ULL) &lt;&lt; <span class="number">16</span>) | ((hash &amp; <span class="number">0x00000000ffff0000</span>ULL) &gt;&gt; <span class="number">16</span>));</span><br><span class="line">&#125;</span><br></pre></td>
+      </tr>
+    </table>
+  </figure>
+</p>
+<p>把数据条目和节点一起存储在单一记录中，乍一看像是设计失误，但其实是相当聪明的。为了存储一个条目的数据，总是需要保持三种不同的数据：bucket、碰撞和条目。既然bucket数组中的bucket必须顺序存储，其需要就这样存储并且没有任何该进的方法。假设我们保存的不是整型而是不能存储在bucket中的字符或可变长度字节数组，这使其必须访问此bucket数组区域之外的其他内存。这样当添加一个新条目的时候，需要即保存冲突数据结构的数据，又要保存该条目键名和键值的数据。</p>
+<p>如果冲突和条目数据分开保存，其需要访问硬盘两次，再加上必须的对bucket的访问。如果要设置新值，其需要总计3次写入，并且写入的位置可能相差很远。这表示是在硬盘上的随机写入，这差不多是I/O的最糟糕的情况了。现在既然Kyoto Cabinet的HashDB中节点数据和条目数据存储在一起，其就可以只用一次写入写到硬盘中。当然，仍然必须访问bucket，但如果bucket数组足够小，就可以通过操作系统将其从硬盘中缓存到RAM中。如规范中”Effective Implementation of Hash
+  Database”一节[17]声明的，Kyoto Cabinet可能采用这种方式。</p>
+<p>然而在硬盘上用二叉树存储条目需要注意的一点是，其会降低读取速度，至少当碰撞出现的时候会是这样。实际上，因为节点和条目存储在一起，处理一个bucket中的碰撞实际上是在一个二叉树中寻找要找的条目，这可能需要大量的对硬盘的随机读取。这可以让我们理解当条目的数量超过bucket数量时Kyoto Cabinet的性能急剧下降的原因。</p>
+<p>最后，因为所有的东西都是存在文件中，Kyoto Cabinet是自己处理内存管理，而非像unordered_map 和dense_hash_map那样交给操作系统处理。FreeBlock结构体保存着和文件中空闲空间的信息，其基本上是offset和大小，如下：
+  <br>
+  <figure class="highlight js">
+    <table>
+      <tr>
+        <td class="code"><pre><span class="line"><span class="comment">/* from kyotocabinet-1.2.76/kchashdb.h */</span></span><br><span class="line"><span class="comment">/*** Free block data.*/</span></span><br><span class="line">  struct FreeBlock &#123;</span><br><span class="line">    int64_t off;                         </span><br><span class="line"><span class="comment">///&lt; offset</span></span><br><span class="line">    size_t rsiz;                         </span><br><span class="line"><span class="comment">///&lt; record size</span></span><br><span class="line"><span class="comment">/** comparing operator */</span></span><br><span class="line">    bool operator &lt;(<span class="keyword">const</span> FreeBlock&amp; obj) <span class="keyword">const</span> &#123;</span><br><span class="line">      _assert_(<span class="literal">true</span>);</span><br><span class="line">      <span class="keyword">if</span> (rsiz &lt; obj.rsiz) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">if</span> (rsiz == obj.rsiz &amp;&amp; off &gt; obj.off) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br></pre></td>
+      </tr>
+    </table>
+  </figure>
+</p>
+<p>所有的FreeBlock实例都加载在std::set中，其可以像fetch_free_block()方法中那样使用std::set的upper_bound()方法来释放内存块，从而实现“最佳拟合”的内存分配策略。当可用空间显得过分细碎或者FreeBlock池中没有空间了，文件将进行碎片整理。此碎片整理过程通过移动各条记录来减少数据库文件的整体大小。</p>
+<h2 id="小结">小结</h2>
+<p>本文中，展示了三个不同哈希表库的数据组织和内存访问模式。<code>TR1的 unordered_map和SparseHash的 dense_hash_map是在内存中的，而Kyoto Cabinet的 HashDB是在硬盘上的。</code>此三者用不同的访问处理hash碰撞，并对性能有不同的影响。将bucket数据、碰撞数据和条目数据各自分开将影响性能，这是unordered_map中出现的情况。如dense_hash_map及其二次内部探测那样，将碰撞数据和bucket存储在一起；或者像HashDB那样，将碰撞数据和条目数据存储在一起都可以大幅提高速度。此两者都可以提高写入速度，但将碰撞数据和bucket存储在一起可以使读取更快。</p>
+<p>如果让我说从这些哈希表中学到的最重要的东西是什么的话，我会说在设计哈希表的数据组织的时候，首选的解决方案是将碰撞数据和bucket数据存储在一起。因为即便是在硬盘上，bucket数组和碰撞数据也会相当小，足够它们存储在RAM中，随机读取的花费将会比在硬盘上低得多。</p>
+<h2 id="参考文献">参考文献</h2>
+<p>[1]<a href="http://en.wikipedia.org/wiki/Hash_table" target="_blank" rel="external">http://en.wikipedia.org/wiki/Hash_table</a>
+  <br>[2]<a href="http://www.amazon.com/Introduction-Algorithms-Thomas-H-Cormen/dp/0262033844" target="_blank" rel="external">http://www.amazon.com/Introduction-Algorithms-Thomas-H-Cormen/dp/0262033844</a>
+  <br>[3]<a href="http://en.wikipedia.org/wiki/Avalanche_effect" target="_blank" rel="external">http://en.wikipedia.org/wiki/Avalanche_effect</a>
+  <br>[4]<a href="http://blog.reverberate.org/2012/01/state-of-hash-functions-2012.html" target="_blank" rel="external">http://blog.reverberate.org/2012/01/state-of-hash-functions-2012.html</a>
+  <br>[5]<a href="http://www.strchr.com/hash_functions" target="_blank" rel="external">http://www.strchr.com/hash_functions</a>
+  <br>[6]<a href="http://programmers.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed/145633#145633" target="_blank" rel="external">http://programmers.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed/145633#145633</a>
+  <br>[7]<a href="http://blog.aggregateknowledge.com/2012/02/02/choosing-a-good-hash-function-part-3" target="_blank" rel="external">http://blog.aggregateknowledge.com/2012/02/02/choosing-a-good-hash-function-part-3</a>
+  <br>[8]<a href="https://sites.google.com/site/murmurhash" target="_blank" rel="external">https://sites.google.com/site/murmurhash</a>
+  <br>[9]<a href="http://google-opensource.blogspot.fr/2011/04/introducing-cityhash.html" target="_blank" rel="external">http://google-opensource.blogspot.fr/2011/04/introducing-cityhash.html</a>
+  <br>[10]<a href="http://incise.org/hash-table-benchmarks.html" target="_blank" rel="external">http://incise.org/hash-table-benchmarks.html</a>
+  <br>[11]<a href="http://preshing.com/20110603/hash-table-performance-tests" target="_blank" rel="external">http://preshing.com/20110603/hash-table-performance-tests</a>
+  <br>[12]<a href="http://attractivechaos.wordpress.com/2008/08/28/comparison-of-hash-table-libraries" target="_blank" rel="external">http://attractivechaos.wordpress.com/2008/08/28/comparison-of-hash-table-libraries</a>
+  <br>[13]<a href="http://attractivechaos.wordpress.com/2008/10/07/another-look-at-my-old-benchmark" target="_blank" rel="external">http://attractivechaos.wordpress.com/2008/10/07/another-look-at-my-old-benchmark</a>
+  <br>[14]<a href="http://blog.aggregateknowledge.com/2011/11/27/big-memory-part-3-5-google-sparsehash" target="_blank" rel="external">http://blog.aggregateknowledge.com/2011/11/27/big-memory-part-3-5-google-sparsehash</a>
+  <br>[15]<a href="http://gcc.gnu.org" target="_blank" rel="external">http://gcc.gnu.org</a>
+  <br>[16]<a href="https://code.google.com/p/sparsehash" target="_blank" rel="external">https://code.google.com/p/sparsehash</a>
+  <br>[17]<a href="http://fallabs.com/kyotocabinet/spex.html" target="_blank" rel="external">http://fallabs.com/kyotocabinet/spex.html</a>
+  <br>[18]<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1456.html" target="_blank" rel="external">http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1456.html</a>
+  <br>[19]<a href="http://sparsehash.googlecode.com/svn/trunk/doc/implementation.html" target="_blank" rel="external">http://sparsehash.googlecode.com/svn/trunk/doc/implementation.html</a>
+  <br>[20]<a href="http://en.wikipedia.org/wiki/CPU_cache" target="_blank" rel="external">http://en.wikipedia.org/wiki/CPU_cache</a></p>]]></content>
+    <summary type="html">
+    <![CDATA[<p>英文原文：<a href="http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/" target="_blank" rel="e]]>
+    </summary>
+    
+      <category term="Hash" scheme="http://yoursite.com/tags/Hash/"/>
+    
+      <category term="Algorithms" scheme="http://yoursite.com/categories/Algorithms/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Node.js性能调优]]></title>
     <link href="http://yoursite.com/2015/10/11/web-nodejs-performance/"/>
     <id>http://yoursite.com/2015/10/11/web-nodejs-performance/</id>
     <published>2015-10-11T06:44:12.000Z</published>
-    <updated>2015-10-11T16:15:17.000Z</updated>
-    <content type="html"><![CDATA[<p><a href="/2015/10/11/web-nodejs-debug/">上篇文章</a>介绍了Node.js断言技术，现在我们再来说说有关性能调优相关技术。</p>
+    <updated>2015-10-18T07:29:47.000Z</updated>
+    <content type="html"><![CDATA[<p><a href="/2015/10/11/web-nodejs-debug/">上篇文章：《Node.js断言方案》</a>介绍了Node.js断言技术，现在我们再来说说有关性能调优相关技术。</p>
 <h2 id="性能调优">性能调优</h2>
 <p>说完了<code>Node.js</code>调试方面需要掌握的基本技能，下面说一下性能调优相关的技巧。
   <br>Node.js相比Java、PHP这些老牌语言，基础设施还是有所欠缺的：比如性能分析和监控工具等，加上它的单线程运行特性，在大型应用中，很容易让系统的CPU、内存或者事件队列太满达到瓶颈，从而导致程序崩溃。一旦发现程序警报CPU负载过高，或者内存飙高时，我们该如何排查Node.js代码存在的问题呢？首先先分析一下问题。</p>
@@ -120,9 +271,9 @@
 <p>博客：<a href="https://vectorho.github.io" target="_blank" rel="external">https://vectorho.github.io</a>
   <br>作者：<a href="https://vectorho.github.io/about/" target="_blank" rel="external">Vector Ho</a></p>]]></content>
     <summary type="html">
-    <![CDATA[<p><a href="/2015/10/11/web-nodejs-debug/">上篇文章</a>介绍了Node.js断言技术，现在我们再来说说有关性能调优相关技术。</p>
+    <![CDATA[<p><a href="/2015/10/11/web-nodejs-debug/">上篇文章：《Node.js断言方案》</a>介绍了Node.js断言技术，现在我们再来说说有关性能调优相关技术。</p>
 <h2 id="性能调优">性能调优</h2>
-<p>说完了<code>Node.js</code>]]>
+<p>说完了<code>]]>
     </summary>
     
       <category term="Node.js" scheme="http://yoursite.com/tags/Node-js/"/>

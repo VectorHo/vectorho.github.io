@@ -17,7 +17,14 @@
 
     <url>
         <loc>http://yoursite.com/tags/Node-js/</loc>
-        <lastmod>2015-10-12T07:50:13.000Z</lastmod>
+        <lastmod>2015-10-18T07:29:47.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/Hash/</loc>
+        <lastmod>2015-10-18T08:24:54.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

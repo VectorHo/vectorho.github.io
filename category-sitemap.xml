@@ -15,7 +15,14 @@
 
     <url>
         <loc>http://yoursite.com/categories/web%E6%8A%80%E6%9C%AF/</loc>
-        <lastmod>2015-10-12T07:50:13.000Z</lastmod>
+        <lastmod>2015-10-18T07:29:47.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/Algorithms/</loc>
+        <lastmod>2015-10-18T08:24:54.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

@@ -33,7 +33,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="Hash," />
 
 
 
@@ -44,15 +44,27 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-  <meta name="description" content="better me.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="VectorHo">
-  <meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="英文原文：http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/
+大家都知道每种编程语言里都提供Hash结构，不过对于Hash的知识，大家是不是觉得很抽象？
+  Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Hash简介">
+  <meta property="og:url" content="http://yoursite.com/2015/10/17/algorithm-hash/index.html">
   <meta property="og:site_name" content="VectorHo">
-  <meta property="og:description" content="better me.">
+  <meta property="og:description" content="英文原文：http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/
+大家都知道每种编程语言里都提供Hash结构，不过对于Hash的知识，大家是不是觉得很抽象？
+  Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不">
+  <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash1.jpg">
+  <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash2.jpg">
+  <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash3.jpg">
+  <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash4.jpg">
+  <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash5.jpg">
+  <meta property="og:updated_time" content="2015-10-18T08:24:54.000Z">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="VectorHo">
-  <meta name="twitter:description" content="better me.">
+  <meta name="twitter:title" content="Hash简介">
+  <meta name="twitter:description" content="英文原文：http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/
+大家都知道每种编程语言里都提供Hash结构，不过对于Hash的知识，大家是不是觉得很抽象？
+  Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不">
 
 
   <script type="text/javascript" id="hexo.configuration">
@@ -62,7 +74,7 @@
     };
   </script>
 
-  <title> VectorHo </title>
+  <title> Hash简介 | VectorHo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -106,9 +118,7 @@
 
 
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -229,8 +239,8 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content">
-          <section id="posts" class="posts-expand">
 
+          <div id="posts" class="posts-expand">
 
 
             <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
@@ -242,9 +252,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/10/17/algorithm-hash/" itemprop="url">
-                Hash简介
-              </a>
+              Hash简介
             
           
         </h1>
@@ -289,7 +297,6 @@
               </header>
 
               <div class="post-body">
-
 
 
 
@@ -441,690 +448,77 @@ java里的hashMap就是这样结构，负载因子是用来决定桶bucket大小
                   <br>[20]<a href="http://en.wikipedia.org/wiki/CPU_cache" target="_blank" rel="external">http://en.wikipedia.org/wiki/CPU_cache</a></p>
                 </span>
 
-
               </div>
 
               <footer class="post-footer">
 
+                <div class="post-tags">
 
-
-
-
-
-                <div class="post-eof"></div>
-
-              </footer>
-            </article>
-
-
-
-
-
-            <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-              <header class="post-header">
-
-
-
-                <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/11/web-nodejs-performance/" itemprop="url">
-                Node.js性能调优
-              </a>
-            
-          
-        </h1>
-
-
-                <div class="post-meta">
-                  <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-11T14:44:12+08:00" content="2015-10-11">
-            2015-10-11
-          </time>
-        </span>
-
-
-                  <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/web技术/" itemprop="url" rel="index">
-                  <span itemprop="name">web技术</span>
-                  </a>
-                  </span>
-
-
-
-
-
-                  </span>
-
-
-
-
-                  <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/10/11/web-nodejs-performance/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/11/web-nodejs-performance/" itemprop="commentsCount"></span>
-                  </a>
-                  </span>
-
+                  <a href="/tags/Hash/" rel="tag">#Hash</a>
 
                 </div>
-              </header>
 
-              <div class="post-body">
 
 
+                <div class="post-nav">
+                  <div class="post-nav-prev post-nav-item">
 
-
-
-
-                <span itemprop="articleBody"><p><a href="/2015/10/11/web-nodejs-debug/">上篇文章：《Node.js断言方案》</a>介绍了Node.js断言技术，现在我们再来说说有关性能调优相关技术。</p>
-<h2 id="性能调优">性能调优</h2>
-<p>说完了<code>Node.js</code>调试方面需要掌握的基本技能，下面说一下性能调优相关的技巧。
-  <br>Node.js相比Java、PHP这些老牌语言，基础设施还是有所欠缺的：比如性能分析和监控工具等，加上它的单线程运行特性，在大型应用中，很容易让系统的CPU、内存或者事件队列太满达到瓶颈，从而导致程序崩溃。一旦发现程序警报CPU负载过高，或者内存飙高时，我们该如何排查Node.js代码存在的问题呢？首先先分析一下问题。</p>
-<p>内存持高存在的因素：</p>
-<ul>
-  <li>缓存，很多人在code的时候把内存当缓存用，e.g. 使用js对象储存用户的session信息</li>
-  <li>闭包，作用域长时间不能被释放掉</li>
-  <li>生产者和消费者存在速度延迟，e.g. 数据库忙不过来，query队列堆积</li>
-</ul>
-<p>CPU负载过高可能因素：</p>
-<ul>
-  <li>垃圾回收频率过高、量太大，这一般是因为内存或者缓存暴涨导致的</li>
-  <li>密集型的长循环计算，e.g. 大量遍历文件夹、大量计算等</li>
-  <li>客户端并发数太大，e.g. 利用node作为socket服务端时，客户端连接数太大时，心跳处理也属于一次网络io，最终libuv转换成事件，严重影响业务消息发送</li>
-</ul>
-<p>这些问题都是让人头疼的，一个项目几十上百个文件，收到这些警报如果没有经验，根本无从下手排查。</p>
-<p>最直接的手段就是分析 GC 日志，因为程序的一举一动都会反馈到 GC 上，而上述问题也会一一指向 GC，如：
-  <br>内存暴涨，尤其是 Old Space 内存的暴涨，会直接导致 GC 的次数和时间增长
-  <br>缓存增加，导致 GC 的时间增加，无用遍历过多
-  <br>密集型计算，导致 GC Now Space次数增加</p>
-<p><code>ps：</code>阿里出了一套调优工具<a href="http://alinode.aliyun.com/" target="_blank" rel="external">alinode</a>，看起来比较不错，感兴趣的童鞋可以试试，顺便反馈一下情况。😄</p>
-<h3 id="内存管理">内存管理</h3>
-<p>有关<code>Node.js</code>内存管理和垃圾回收机制，这里简单介绍一下，用心的同学可以去搜索一下这方面的资料。
-  <br><code>V8</code>把内存分为 New Space 和 Old Space，New Space 的大小默认为 8M，Old Space 的大小默认为 0.7G，64位系统这两个数值翻倍。
-  <br>对象的生命周期是：首先进入 New Space，然而 New Space 被平均分为两份，当一次GC运行后都会将其中一份的活着的对象复制到另一份，所以它的空间使用率是<code>50%</code>，这个算法叫做 Cheney 算法，这个操作叫做 Scavenge。再过一段时间，如果 New Space 中的对象还活着，这些对象会被挪到 Old Space 中去，GC 会每隔一段时间遍历 Old Space 中死掉的对象，然后整理碎片（这里有两种模式 mark-sweep 和 mark-compact，不赘述）。上面提到的<code>死掉的对象</code>指的是对象已经没有被引用了，或者说被引用的次数为零了。</p>
-<h3 id="分析GC日志">分析GC日志</h3>
-<p>上面说完Node.js内存管理后，下面我们开始分析具体问题了，e.g. 假设缓存增加（比如使用对象缓存了很多用户信息），GC 是不知道这些缓存死了还是活着的，他们会不停地查看这个对象，以及这个对象中的子对象是否还存活，如果这个对象数特别大，那么GC遍历的时间也会特别长。
-  <br>当我们进行密集型计算的时候，会产生很多中间变量，这些变量往往在New Space中就死掉了，那么GC也会在这里多次地进行New Space区域的垃圾回收。
-  <br>如何分析？
-  <br>Node在启动程序的时候添加<code>--trace_gc</code>参数，当V8在进行垃圾回收的时候，会将垃圾回收的信息打印出来：
-  <br>
-  <figure class="highlight js">
-    <table>
-      <tr>
-        <td class="code"><pre><span class="line">➜  $ node --trace_gc test.js</span>
-                <br><span class="line">...</span>
-                <br><span class="line">[<span class="number">94036</span>] <span class="number">68</span> ms: Scavenge <span class="number">8.4</span> (<span class="number">42.5</span>) -&gt; <span class="number">8.2</span> (<span class="number">43.5</span>)
-                MB, <span class="number">2.4</span> ms [allocation failure].</span>
-                <br><span class="line">[<span class="number">94036</span>] <span class="number">74</span> ms: Scavenge <span class="number">8.9</span> (<span class="number">43.5</span>) -&gt; <span class="number">8.9</span> (<span class="number">46.5</span>)
-                MB, <span class="number">5.1</span> ms [allocation failure].</span>
-                <br><span class="line">[<span class="number">94036</span>] Increasing marking speed to <span class="number">3</span> due to high promotion rate</span>
-                <br><span class="line">[<span class="number">94036</span>] <span class="number">85</span> ms: Scavenge <span class="number">16.1</span> (<span class="number">46.5</span>) -&gt; <span class="number">15.7</span> (<span class="number">47.5</span>)
-                MB, <span class="number">3.8</span> ms (+ <span class="number">5.0</span> ms <span class="keyword">in</span> <span class="number">106</span> steps since last GC) [allocation failure].</span>
-                <br><span class="line">[<span class="number">94036</span>] <span class="number">95</span> ms: Scavenge <span class="number">16.7</span> (<span class="number">47.5</span>) -&gt; <span class="number">16.6</span> (<span class="number">54.5</span>)
-                MB, <span class="number">7.2</span> ms (+ <span class="number">1.3</span> ms <span class="keyword">in</span> <span class="number">14</span> steps since last GC) [allocation failure].</span>
-                <br><span class="line">[<span class="number">94036</span>] <span class="number">111</span> ms: Mark-sweep <span class="number">23.6</span> (<span class="number">54.5</span>) -&gt; <span class="number">23.2</span> (<span class="number">54.5</span>)
-                MB, <span class="number">6.2</span> ms (+ <span class="number">15.3</span> ms <span class="keyword">in</span> <span class="number">222</span> steps since start <span class="keyword">of</span> marking, biggest step <span class="number">0.3</span>                ms) [GC interrupt] [GC <span class="keyword">in</span> old space requested].</span>
-                <br><span class="line">...</span>
-                <br>
-                </pre>
-                </td>
-                </tr>
-                </table>
-                </figure>
-                </p>
-                <p>V8也提供了很多程序启动选项：</p>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>选项</th>
-                      <th>含义</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>–max-stack-size</td>
-                      <td>设置栈大小</td>
-                    </tr>
-                    <tr>
-                      <td>–v8-options</td>
-                      <td>打印V8相关命令</td>
-                    </tr>
-                    <tr>
-                      <td>–trace-bailout</td>
-                      <td>查找不能被优化的函数，重写</td>
-                    </tr>
-                    <tr>
-                      <td>–trace-deopt</td>
-                      <td>查找不能优化的函数</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p>这些选项可以让我们查看V8在执行时的各种log日志，对于排查隐晦问题比较有用。</p>
-                <p>然而这堆日志看起来很糟糕，可以先将日志输出来之后交给专业的工具帮我们分析，相信大部分人都用Chrome DevTools的JavaScript CPU Profile：
-                  <br>
-                </p>
-                <p>通过Profile工具可以找到具体函数在整个程序中的执行时间和执行时间占比，从而分析到具体的代码问题，V8 也提供了Profile日志导出：
-                  <br>
-                  <figure class="highlight js">
-                    <table>
-                      <tr>
-                        <td class="code"><pre><span class="line">node --prof test.js</span><br></pre></td>
-                      </tr>
-                    </table>
-                  </figure>
-                </p>
-                <p>执行命令之后，会在该目录下产生一个 *-v8.log 的日志文件，我们可以安装一个日志分析工具 tick:</p>
-                <figure class="highlight js">
-                  <table>
-                    <tr>
-                      <td class="code"><pre><span class="line">➜  $ sudo npm install tick -g</span><br><span class="line">➜  $ node-tick-processor *-v8.log</span><br><span class="line">[Top down (heavy) profile]:</span><br><span class="line">  Note: callees occupying less than <span class="number">0.1</span>% are not shown.</span><br><span class="line">  inclusive      self           name</span><br><span class="line">  ticks   total  ticks   total</span><br><span class="line">    <span class="number">426</span>   <span class="number">36.7</span>%      <span class="number">0</span>    <span class="number">0.0</span>%  <span class="built_in">Function</span>: ~<span class="xml"><span class="tag">&lt;<span class="title">anonymous</span>&gt;</span> node.js:27:10</span><br><span class="line">    426   36.7%      0    0.0%    LazyCompile: ~startup node.js:30:19</span><br><span class="line">    410   35.3%      0    0.0%      LazyCompile: ~Module.runMain module.js:499:26</span><br><span class="line">    409   35.2%      0    0.0%        LazyCompile: Module._load module.js:273:24</span><br><span class="line">    407   35.1%      0    0.0%          LazyCompile: ~Module.load module.js:345:33</span><br><span class="line">    406   35.0%      0    0.0%            LazyCompile: ~Module._extensions..js module.js:476:37</span><br><span class="line">    405   34.9%      0    0.0%              LazyCompile: ~Module._compile module.js:378:37</span><br><span class="line">...</span></span><br></pre></td>
-                    </tr>
-                  </table>
-                </figure>
-                <p>也可以使用headdump之类的工具将日志导出，然后放到Chrome的Profile中去分析，如果看过深入浅出node.js的童鞋可以参考内存调优的章节。</p>
-                <h2 id="总结">总结</h2>
-                <p>对于任何一门程序而已，内存调优都是比较难的，这方面是需要智慧和经验，然而并不要被困难吓到，不断去折腾，相信每一次都会有新的收获。</p>
-                <p>参考：
-                  <br><a href="https://nodejs.org" target="_blank" rel="external">https://nodejs.org</a>
-                  <br><a href="https://iojs.org" target="_blank" rel="external">https://iojs.org</a>
-                  <br><a href="http://www.barretlee.com/blog/2015/10/07/debug-nodejs-in-command-line/" target="_blank" rel="external">http://www.barretlee.com/blog/2015/10/07/debug-nodejs-in-command-line/</a></p>
-                <hr>
-                <p>博客：<a href="https://vectorho.github.io" target="_blank" rel="external">https://vectorho.github.io</a>
-                  <br>作者：<a href="https://vectorho.github.io/about/" target="_blank" rel="external">Vector Ho</a></p>
-                </span>
-
-
-              </div>
-
-              <footer class="post-footer">
-
-
-
-
-
-
-                <div class="post-eof"></div>
-
-              </footer>
-            </article>
-
-
-
-
-
-            <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-              <header class="post-header">
-
-
-
-                <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/11/web-nodejs-debug/" itemprop="url">
-                Node.js断言方案
-              </a>
-            
-          
-        </h1>
-
-
-                <div class="post-meta">
-                  <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-11T14:44:12+08:00" content="2015-10-11">
-            2015-10-11
-          </time>
-        </span>
-
-
-                  <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/web技术/" itemprop="url" rel="index">
-                  <span itemprop="name">web技术</span>
-                  </a>
-                  </span>
-
-
-
-
-
-                  </span>
-
-
-
-
-                  <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/10/11/web-nodejs-debug/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/11/web-nodejs-debug/" itemprop="commentsCount"></span>
-                  </a>
-                  </span>
-
-
-                </div>
-              </header>
-
-              <div class="post-body">
-
-
-
-
-
-
-                <span itemprop="articleBody"><p><a href="https://nodejs.org" target="_blank" rel="external">Node.js</a>是什么？Node.js适合什么场景？多少公司已用于生产环境？Node.js靠不靠谱？这个话题应该无可厚非了，如果今天还在质疑Node.js的能力，相信它一定不是一家面向互联网公司。
-  <br>自 2009 年<code>Ryan Dahl</code>发布后，到现在已经六个年头了。人红是非多，先后经历了ruby、php web擂台之战，后因某些原因派生出了<a href="https://iojs.org" target="_blank" rel="external">iojs</a>这个兄弟；分久必合，大势所趋。最近两兄弟又合体了，衍生出了Node.js V4.0版本，官方又解释这个版本是Node.js V1.0 新版本，原班人马重新回归。关于1.0新时代，有兴趣的童鞋请参考详情：<a href="http://mp.weixin.qq.com/s?__biz=MzAxMTU0NTc4Nw==&amp;mid=239799758&amp;idx=1&amp;sn=9762fe70f14829e7bd42fb1f35a6362e&amp;scene=23&amp;srcid=1011W2vcX80qGPXQEhjJAeB5#rd" target="_blank" rel="external">http://mp.weixin.qq.com/s?__biz=MzAxMTU0NTc4Nw==&amp;mid=239799758&amp;idx=1&amp;sn=9762fe70f14829e7bd42fb1f35a6362e&amp;scene=23&amp;srcid=1011W2vcX80qGPXQEhjJAeB5#rd</a>。
-  <br>btw，po一个js全栈图：
-  <br><img src="/2015/10/11/web-nodejs-debug/nodejs.png" alt="[js全栈示例]" title="[js全栈示例]"></p>
-<h2 id="断言调试">断言调试</h2>
-<p>我们日常使用<code>IDE</code>工具，实际上很多<code>IDE</code>工具已经集成了Node.js的调试工具；
-  <br>比如Eclipse、webStorm等等，他们断言的原理是利用Node.js的<code>Debugger</code>内建模块，然后在这个基础上进行了封装。</p>
-<h3 id="Debugger内建模块">Debugger内建模块</h3>
-<p>Node.js提供的内建Debugger模块十分强大，它告诉V8，在执行代码的时候中断程度，等待开发者操控代码的执行进度。</p>
-<ul>
-  <li>
-    <p><a href="#">立即调试模式</a>:
-      <br>一般用于程序主动执行方式，比如一个程序计算某种结果，并非要监听某个端口来等待请求。</p>
-    <p><code>node debug xx.js</code> // 利用命令行来向5858端口传送调试指令</p>
-  </li>
-  <li>
-    <p><a href="#">等待调试模式</a>:
-      <br>正好与立即模式相反，常用于web程序 e.g. express要调试，必须使用这种方式启动，然后当请求来了才能进行调试，并非程序马上执行的类型。</p>
-    <p><code>node --debug xx.js</code> // 监听5858默认端口接收调试命令
-      <br><code>node --debug-brk=8080 xx.js</code> // 监听8080端口来接收调试指令</p>
-  </li>
-</ul>
-<h4 id="立即调试模式">立即调试模式</h4>
-<p><code>see</code> test.js
-  <br>
-  <figure class="highlight js">
-    <table>
-      <tr>
-        <td class="code"><pre><span class="line"><span class="keyword">var</span> hello = <span class="string">'hello'</span>;</span>
-                <br><span class="line"><span class="keyword">var</span> world = <span class="string">'nodejs'</span>;</span>
-                <br><span class="line"><span class="keyword">debugger</span>;</span>
-                <br><span class="line"><span class="keyword">var</span> hello_world = hello + <span class="string">' '</span> + world;</span>
-                <br><span class="line"><span class="built_in">console</span>.log(hello_world);</span>
-                <br>
-                </pre>
-                </td>
-                </tr>
-                </table>
-                </figure>
-                </p>
-                <p>执行命令：<code>node debug test.js</code> 就可以进入调试模式。
-                  <br>
-                  <figure class="highlight js">
-                    <table>
-                      <tr>
-                        <td class="code"><pre><span class="line">➜  $ node debug test.js</span><br><span class="line">&lt; <span class="keyword">debugger</span> listening on port <span class="number">5858</span></span><br><span class="line">connecting... ok</span><br><span class="line"><span class="keyword">break</span> <span class="keyword">in</span> helloword-debug.js:<span class="number">1</span></span><br><span class="line">  <span class="number">1</span> <span class="keyword">var</span> hello = <span class="string">'hello'</span>;</span><br><span class="line">  <span class="number">2</span> <span class="keyword">var</span> world = <span class="string">'nodejs'</span>;</span><br><span class="line">  <span class="number">3</span></span><br><span class="line">debug&gt; help</span><br><span class="line">Commands: run (r), cont (c), next (n), step (s), out (o), backtrace (bt), setBreakpoint (sb), clearBreakpoint (cb),</span><br><span class="line">watch, unwatch, watchers, repl, restart, kill, list, scripts, breakOnException, breakpoints, version</span><br><span class="line">debug&gt;</span><br><span class="line">debug&gt; n</span><br><span class="line"><span class="keyword">break</span> <span class="keyword">in</span> helloword-debug.js:<span class="number">2</span></span><br><span class="line">  <span class="number">1</span> <span class="keyword">var</span> hello = <span class="string">'hello'</span>;</span><br><span class="line">  <span class="number">2</span> <span class="keyword">var</span> world = <span class="string">'nodejs'</span>;</span><br><span class="line">  <span class="number">3</span></span><br><span class="line">  <span class="number">4</span> <span class="keyword">debugger</span>;</span><br><span class="line">debug&gt; repl</span><br><span class="line">Press Ctrl + C to leave debug repl</span><br><span class="line">&gt; hello</span><br><span class="line"><span class="string">'hello'</span></span><br></pre></td>
-                      </tr>
-                    </table>
-                  </figure>
-                </p>
-                <h4 id="等待调试模式">等待调试模式</h4>
-                <figure class="highlight js">
-                  <table>
-                    <tr>
-                      <td class="code"><pre><span class="line">➜  $ node --debug test.js <span class="comment">// 告知V8，test.js在默认端口5858上接收指令</span></span><br></pre></td>
-                    </tr>
-                  </table>
-                </figure>
-                <p>当我们使用<code>debug</code>参数打开一个node文件时，会输出这样一行文字：
-                  <br><img src="/2015/10/11/web-nodejs-debug/node-debug.png" alt="[--debug]" title="[--debug]">
-                  <br>打开浏览器访问 <a href="http://localhost:5858" target="_blank" rel="external">http://localhost:5858</a>：
-                  <br><img src="/2015/10/11/web-nodejs-debug/debug.png" alt="[node --debug test.js]" title="[node --debug test.js]"></p>
-                <p><code>--debug</code>其实是告诉用户<code>Node</code>在运行脚本时启动了内建debugger功能，并监听5858端口来处理传输的的调试命令。
-                  <br>这里强调一下，如果要进行远程调试，还要结合node debug来实现：</p>
-                <ul>
-                  <li>
-                    <p>服务端(程序)：</p>
-                    <figure class="highlight js">
-                      <table>
-                        <tr>
-                          <td class="code"><pre><span class="line">➜  $ node --debug server.js <span class="comment">// 通知V8开启调试功能，等待接收调试指令</span></span><br></pre></td>
-                        </tr>
-                      </table>
-                    </figure>
-                  </li>
-                  <li>
-                    <p>客户端(终端)： </p>
-                    <figure class="highlight js">
-                      <table>
-                        <tr>
-                          <td class="code"><pre><span class="line">node debug &lt;URI&gt;， 通过 URI 连接调试，e.g. node debug &lt;服务器IP&gt;:<span class="xml"><span class="tag">&lt;<span class="title">调试端口，默认5858</span>&gt;</span></span><br><span class="line">node debug -p <span class="tag">&lt;<span class="title">pid</span>&gt;</span> 通过 PID 链接调试</span><br><span class="line">node debug localhost:5858</span><br><span class="line">➜  $ node debug localhost:5858 // 客户端可以远程调试--debug启动server.js</span></span><br></pre></td>
-                        </tr>
-                      </table>
-                    </figure>
-                  </li>
-                </ul>
-                <p>当然如果要修改默认端口，可以用选项<code>--debug-brk=8080</code>这样的方式：
-                  <br>
-                  <figure class="highlight js">
-                    <table>
-                      <tr>
-                        <td class="code"><pre><span class="line">➜  $ node --debug-brk=<span class="number">8080</span> xx.js <span class="comment">// 通知V8开启调试功能，等待接收调试指令</span></span><br></pre></td>
-                      </tr>
-                    </table>
-                  </figure>
-                </p>
-                <h3 id="推荐node-inspector神器">推荐node-inspector神器</h3>
-                <p>Node.js断言技术有很多种方式，本质都是基于Node.js本身提供的debugger原理。
-                  <br>推荐用户使用<a href="https://www.npmjs.com/package/node-inspector" target="_blank" rel="external">node-inspector</a>原因是它不依赖某个IDE，接近原生且更加灵活，并且可以断言coffee预处理js。
-                  <br>所以下面来讲讲Node.js神器<a href="https://www.npmjs.com/package/node-inspector" target="_blank" rel="external">node-inspector</a>。
-                  <br><code>node-inspector</code>就是用了上述<code>等待调试模式</code>原理，另外加上websocket技术传输信息，并且提供GUI方便用户调试。</p>
-                <h4 id="原理">原理</h4>
-                <p>node-inspector提供一个web server作为GUI接收用户的指令，然后内部用websocket协议与需要被调试的程序进行实时交互。
-                  <br>
-                  <figure class="highlight bash">
-                    <table>
-                      <tr>
-                        <td class="code"><pre><span class="line">用户指令 ---GUI--<span class="number">8080</span>---&gt; node-inspector ---websocket--<span class="number">5858</span>---&gt; node\<span class="string">'s debugger</span></span><br></pre></td>
-                      </tr>
-                    </table>
-                  </figure>
-                </p>
-                <h4 id="实践">实践</h4>
-                <ul>
-                  <li>
-                    <p>安装node-inspector：</p>
-                    <figure class="highlight js">
-                      <table>
-                        <tr>
-                          <td class="code"><pre><span class="line">➜  $ npm install -g node-inspector <span class="comment">// 安装node-inspector</span></span><br></pre></td>
-                        </tr>
-                      </table>
-                    </figure>
-                  </li>
-                  <li>
-                    <p>启动node-inspector：
-                      <br>开启一个终端窗口，执行如下</p>
-                    <figure class="highlight js">
-                      <table>
-                        <tr>
-                          <td class="code"><pre><span class="line">➜  $ node-inspector <span class="comment">// 直接监听默认端口8080</span></span><br><span class="line">➜  $ node-inspector --web-port <span class="number">8080</span> --debug-port <span class="number">5858</span></span><br></pre></td>
-                        </tr>
-                      </table>
-                    </figure>
-                    <p><code>--web-port</code>是<code>Chrome Devtools</code>的调试页面端口，<code>--debug-port</code>为Node.js启动的内建debug端口，即需被调试的程序xx.js <code>node --debug-brk=5858 xx.js</code> 等待接收调试指令的端口! 😄</p>
-                  </li>
-                  <li>
-                    <p>启动被调试程序：
-                      <br>再开启一个终端窗口，执行如下</p>
-                    <figure class="highlight js">
-                      <table>
-                        <tr>
-                          <td class="code"><pre><span class="line">➜  $ node --debug-brk=<span class="number">5858</span> test.js || node --debug test.js</span><br><span class="line">     或者</span><br><span class="line">➜  $ node-debug test.js</span><br></pre></td>
-                        </tr>
-                      </table>
-                    </figure>
-                  </li>
-                </ul>
-                <p>可以在 <a href="http://localhost:8080/debug?port=5858" target="_blank" rel="external">http://localhost:8080/debug?port=5858</a> 打开node-inspector页面，调试使用<code>--debug(-brk)</code>或<code>node-debug</code>参数启动的程序。
-                  <br><img src="/2015/10/11/web-nodejs-debug/inspector-ui.png" alt="[inspector GUI]" title="[inspector GUI]">
-                  <br>更多设置可以查阅<a href="https://www.npmjs.com/package/node-inspector" target="_blank" rel="external">官方文档</a>。</p>
-                <p><code>tips：</code>这里提示一下利用node-inspector调试coffeescript程序时的设置，开启node-inspector方式一样，但启动需要被调试的程序有点不一样，如下。
-                  <br>
-                  <figure class="highlight js">
-                    <table>
-                      <tr>
-                        <td class="code"><pre><span class="line">➜  $ coffee --nodejs --debug xx.coffee</span><br></pre></td>
-                      </tr>
-                    </table>
-                  </figure>
-                </p>
-                <h3 id="FAQ">FAQ</h3>
-                <p>注意,如果出现
-                  <br>
-                  <figure class="highlight bash">
-                    <table>
-                      <tr>
-                        <td class="code"><pre><span class="line">➜  $ Failed to open socket on port <span class="number">5858</span>, waiting <span class="number">1000</span> ms before retrying</span><br></pre></td>
-                      </tr>
-                    </table>
-                  </figure>
-                </p>
-                <p>请结束掉所有debug进程
-                  <br>
-                  <figure class="highlight bash">
-                    <table>
-                      <tr>
-                        <td class="code"><pre><span class="line">➜  $ ps -ef|grep debug-brk|awk <span class="string">'&#123;print $2&#125;'</span>|xargs <span class="built_in">kill</span> -<span class="number">9</span></span><br></pre></td>
-                      </tr>
-                    </table>
-                  </figure>
-                </p>
-                <h2 id="总结">总结</h2>
-                <p>只有真正理解了一门语言提供的debug技术的原理，才能更加熟练地使用它来调试程序。</p>
-                <p>参考：
-                  <br><a href="https://nodejs.org" target="_blank" rel="external">https://nodejs.org</a>
-                  <br><a href="https://iojs.org" target="_blank" rel="external">https://iojs.org</a></p>
-                <hr>
-                <p>博客：<a href="https://vectorho.github.io" target="_blank" rel="external">https://vectorho.github.io</a>
-                  <br>作者：<a href="https://vectorho.github.io/about/" target="_blank" rel="external">Vector Ho</a></p>
-                </span>
-
-
-              </div>
-
-              <footer class="post-footer">
-
-
-
-
-
-
-                <div class="post-eof"></div>
-
-              </footer>
-            </article>
-
-
-
-
-
-            <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-              <header class="post-header">
-
-
-
-                <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/02/mac-osx-capitan/" itemprop="url">
-                OS X El Capitan 快速更新
-              </a>
-            
-          
-        </h1>
-
-
-                <div class="post-meta">
-                  <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-02T07:26:19+08:00" content="2015-10-02">
-            2015-10-02
-          </time>
-        </span>
-
-
-                  <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/mac/" itemprop="url" rel="index">
-                  <span itemprop="name">mac</span>
-                  </a>
-                  </span>
-
-
-
-
-
-                  </span>
-
-
-
-
-                  <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/10/02/mac-osx-capitan/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/02/mac-osx-capitan/" itemprop="commentsCount"></span>
-                  </a>
-                  </span>
-
-
-                </div>
-              </header>
-
-              <div class="post-body">
-
-
-
-
-
-
-                <h2 id="前奏">前奏</h2>
-                <p>总所周知，<a href="#">app store</a> 国内下载速度实在不敢恭维，然而系统升级一般没个一天是搞不定的（心中有一万只草泥马在奔腾ಥ_ಥ）。
-                  <br>但是，你们天真地以为这就能难倒技术控了么？23333…</p>
-                <p>今天小弟就给看官们带来一次全新体验。</p>
-                <h2 id="原理">原理</h2>
-                <p>抓取苹果官方下载链接，离线到第三方服务器分流。再使用第三方下载工具下载系统<code>.pkg</code>文件。搭建本地静态文件<code>server</code>，
-                  <br>将苹果官方的下载地址解析到本地的服务器，从而实现快速下载安装。</p>
-                <p>抓取工具首推charles（本人和charles不存在隶属关系^.^）。</p>
-                <p><code>ps</code>：以上适用于 El Capitan 更新慢的用户，有百兆光纤的用户可忽略。</p>
-                <div class="post-more-link text-center">
-                  <a class="btn" href="/2015/10/02/mac-osx-capitan/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-                </div>
-
-
-              </div>
-
-              <footer class="post-footer">
-
-
-
-
-
-
-                <div class="post-eof"></div>
-
-              </footer>
-            </article>
-
-
-
-
-
-            <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-              <header class="post-header">
-
-
-
-                <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/27/web-npm_publish/" itemprop="url">
-                Tips For npm — npm publish
-              </a>
-            
-          
-        </h1>
-
-
-                <div class="post-meta">
-                  <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-27T00:43:27+08:00" content="2015-09-27">
-            2015-09-27
-          </time>
-        </span>
-
-
-                  <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/web技术/" itemprop="url" rel="index">
-                  <span itemprop="name">web技术</span>
-                  </a>
-                  </span>
-
-
-
-
-
-                  </span>
-
-
-
-
-                  <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/27/web-npm_publish/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/27/web-npm_publish/" itemprop="commentsCount"></span>
-                  </a>
-                  </span>
-
-
-                </div>
-              </header>
-
-              <div class="post-body">
-
-
-
-
-
-
-                <h2 id="什么是NPM">什么是NPM</h2>
-                <p><a href="https://www.npmjs.com/">npm</a> is the package manager for javascript.
-                  <br>是一个NodeJS包管理和分发工具，已经成为了非官方的发布Node模块（包）的标准。</p>
-                <p>如果你熟悉ruby的gem，Python的pypi、setuptools，PHP的pear，那么你就知道NPM的作用是什么了。</p>
-                <p>Nodejs自身提供了基本的模块，但是开发实际应用过程中仅仅依靠这些基本模块则还需要较多的工作。幸运的是，Nodejs库和框架为我们提供了帮助，让我们减少工作量。但是成百上千的库或者框架管理起来又很麻烦，有了NPM，可以很快的找到特定服务要使用的包，进行下载、安装以及管理已经安装的包。
-                  <br>
-                  <div class="post-more-link text-center">
-                    <a class="btn" href="/2015/09/27/web-npm_publish/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
                   </div>
 
+                  <div class="post-nav-next post-nav-item">
 
-              </div>
+                    <a href="/2015/10/11/web-nodejs-performance/" rel="next">Node.js性能调优</a>
 
-              <footer class="post-footer">
-
-
-
-
+                  </div>
+                </div>
 
 
-                <div class="post-eof"></div>
+
 
               </footer>
             </article>
 
 
 
-          </section>
+            <div class="post-spread">
 
+              <!-- JiaThis Button BEGIN -->
+              <div class="jiathis_style">
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a class="jiathis_button_cqq"></a>
+                <a class="jiathis_button_douban"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_copy"></a>
+                <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+                <a class="jiathis_counter_style"></a>
+              </div>
+              <script type="text/javascript">
+                var jiathis_config = {
+                  hideMore: false
+                }
+              </script>
+              <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+              <!-- JiaThis Button END -->
+
+
+            </div>
+          </div>
 
         </div>
 
 
 
+
+        <div class="comments" id="comments">
+
+          <div class="ds-thread" data-thread-key="2015/10/17/algorithm-hash/" data-title="Hash简介" data-url="http://yoursite.com/2015/10/17/algorithm-hash/">
+          </div>
+
+        </div>
 
       </div>
 
@@ -1141,6 +535,15 @@ java里的hashMap就是这样结构，负载因子是用来决定桶bucket大小
       <aside id="sidebar" class="sidebar">
         <div class="sidebar-inner">
 
+
+          <ul class="sidebar-nav motion-element">
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+              文章目录
+            </li>
+            <li class="sidebar-nav-overview" data-target="site-overview">
+              站点概览
+            </li>
+          </ul>
 
 
           <section class="site-overview">
@@ -1226,6 +629,35 @@ java里的hashMap就是这样结构，负载因子是用来决定桶bucket大小
           </section>
 
 
+          <section class="post-toc-wrap sidebar-panel-active">
+            <div class="post-toc-indicator-top post-toc-indicator"></div>
+            <div class="post-toc">
+
+
+              <div class="post-toc-content">
+                <ol class="nav">
+                  <li class="nav-item nav-level-2"><a class="nav-link" href="#哈希表"><span class="nav-number">1.</span> <span class="nav-text">哈希表</span></a>
+                    <ol class="nav-child">
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表简介"><span class="nav-number">1.1.</span> <span class="nav-text">哈希表简介</span></a></li>
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#哈希函数"><span class="nav-number">1.2.</span> <span class="nav-text">哈希函数</span></a></li>
+                    </ol>
+                  </li>
+                  <li class="nav-item nav-level-2"><a class="nav-link" href="#实现算法"><span class="nav-number">2.</span> <span class="nav-text">实现算法</span></a>
+                    <ol class="nav-child">
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#TR1的_unordered_map"><span class="nav-number">2.1.</span> <span class="nav-text">TR1的 unordered_map</span></a></li>
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#SparseHash的_dense_hash_map"><span class="nav-number">2.2.</span> <span class="nav-text">SparseHash的 dense_hash_map</span></a></li>
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#Kyoto_Cabinet的_HashDB"><span class="nav-number">2.3.</span> <span class="nav-text">Kyoto Cabinet的 HashDB</span></a></li>
+                    </ol>
+                  </li>
+                  <li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li>
+                  <li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li>
+                </ol>
+              </div>
+
+            </div>
+            <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+          </section>
+
 
         </div>
       </aside>
@@ -1308,6 +740,176 @@ java里的hashMap就是这样结构，负载因子是用来决定桶bucket大小
 
   <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+  <script type="text/javascript" id="sidebar.toc.highlight">
+    $(document).ready(function() {
+      var tocSelector = '.post-toc';
+      var $tocSelector = $(tocSelector);
+      var activeCurrentSelector = '.active-current';
+
+      $tocSelector
+        .on('activate.bs.scrollspy', function() {
+          var $currentActiveElement = $(tocSelector + ' .active').last();
+
+          removeCurrentActiveClass();
+          $currentActiveElement.addClass('active-current');
+
+          $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+        })
+        .on('clear.bs.scrollspy', function() {
+          removeCurrentActiveClass();
+        });
+
+      function removeCurrentActiveClass() {
+        $(tocSelector + ' ' + activeCurrentSelector)
+          .removeClass(activeCurrentSelector.substring(1));
+      }
+
+      function processTOC() {
+        getTOCMaxHeight();
+        toggleTOCOverflowIndicators();
+      }
+
+      function getTOCMaxHeight() {
+        var height = $('.sidebar').height() -
+          $tocSelector.position().top -
+          $('.post-toc-indicator-bottom').height();
+
+        $tocSelector.css('height', height);
+
+        return height;
+      }
+
+      function toggleTOCOverflowIndicators() {
+        tocOverflowIndicator(
+          '.post-toc-indicator-top',
+          $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+        );
+
+        tocOverflowIndicator(
+          '.post-toc-indicator-bottom',
+          $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+        )
+      }
+
+      $(document).on('sidebar.motion.complete', function() {
+        processTOC();
+      });
+
+      $('body').scrollspy({
+        target: tocSelector
+      });
+      $(window).on('resize', function() {
+        if ($('.sidebar').hasClass('sidebar-active')) {
+          processTOC();
+        }
+      });
+
+      onScroll($tocSelector);
+
+      function onScroll(element) {
+        element.on('mousewheel DOMMouseScroll', function(event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+        });
+      }
+
+      function tocOverflowIndicator(indicator, action) {
+        var $indicator = $(indicator);
+        var opacity = action === 'show' ? 0.4 : 0;
+        $indicator.velocity ?
+          $indicator.velocity('stop').velocity({
+            opacity: opacity
+          }, {
+            duration: 100
+          }) :
+          $indicator.stop().animate({
+            opacity: opacity
+          }, 100);
+      }
+
+    });
+  </script>
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function() {
+      var html = $('html');
+      var TAB_ANIMATE_DURATION = 200;
+      var hasVelocity = $.isFunction(html.velocity);
+
+      $('.sidebar-nav li').on('click', function() {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        hasVelocity ?
+          currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function() {
+            target
+              .velocity('stop')
+              .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+              .addClass(activePanelClassName);
+          }) :
+          currentTarget.animate({
+            opacity: 0
+          }, TAB_ANIMATE_DURATION, function() {
+            currentTarget.hide();
+            target
+              .stop()
+              .css({
+                'opacity': 0,
+                'display': 'block'
+              })
+              .animate({
+                opacity: 1
+              }, TAB_ANIMATE_DURATION, function() {
+                currentTarget.removeClass(activePanelClassName);
+                target.addClass(activePanelClassName);
+              });
+          });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function(e) {
+        e.preventDefault();
+        var targetSelector = escapeSelector(this.getAttribute('href'));
+        var offset = $(targetSelector).offset().top;
+        hasVelocity ?
+          html.velocity('stop').velocity('scroll', {
+            offset: offset + 'px',
+            mobileHA: false
+          }) :
+          $('html, body').stop().animate({
+            scrollTop: offset
+          }, 500);
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
 
 
 

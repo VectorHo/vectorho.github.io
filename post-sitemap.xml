@@ -7,15 +7,22 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2015/10/11/web-nodejs-debug/</loc>
-        <lastmod>2015-10-12T07:50:13.000Z</lastmod>
+        <loc>http://yoursite.com/2015/10/17/algorithm-hash/</loc>
+        <lastmod>2015-10-18T08:24:54.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
     </url>
 
     <url>
         <loc>http://yoursite.com/2015/10/11/web-nodejs-performance/</loc>
-        <lastmod>2015-10-11T16:15:17.000Z</lastmod>
+        <lastmod>2015-10-18T07:29:47.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/2015/10/11/web-nodejs-debug/</loc>
+        <lastmod>2015-10-12T07:50:13.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
     </url>
