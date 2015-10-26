@@ -7,8 +7,15 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2015/10/26/web-hot-load/</loc>
+        <lastmod>2015-10-26T15:48:52.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2015/10/17/algorithm-hash/</loc>
-        <lastmod>2015-10-18T08:24:54.000Z</lastmod>
+        <lastmod>2015-10-25T16:02:16.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
     </url>

@@ -33,7 +33,7 @@
 
 
 
-  <meta name="keywords" content="osx," />
+  <meta name="keywords" content="Front-End," />
 
 
 
@@ -44,36 +44,36 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-  <meta name="description" content="前奏
-总所周知，app store 国内下载速度实在不敢恭维，然而系统升级一般没个一天是搞不定的（心中有一万只草泥马在奔腾ಥ_ಥ）。
-  但是，你们天真地以为这就能难倒技术控了么？23333…
-今天小弟就给看官们带来一次全新体验。
-原理
-抓取苹果官方下载链接，离线到第三方服务器分流。再使用第三方下载工具下载系统.pkg文件。搭建本地静态文件server，
-  将苹果官方的下载地址解析到本地的服务器">
+  <meta name="description" content="ps：下文我将打算用fe代替Front-End一词。
+时间过得真快，眨眼一周又过去了。今天我们来侃侃liveReload。聊之前先来扯扯开发家常。
+  通常来说，Web页面开发的流程大致是这样的：设计师提供设计稿，通常是psd格式。然后fe开发人员来手工的将图片转换为对应的HTML+CSS，常常还需要在各个浏览器中调试等。
+  一般，设计师还会提供色卡，或至少前景色、背景色、高亮色的值给开发人员。">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="OS X El Capitan 快速更新">
-  <meta property="og:url" content="http://yoursite.com/2015/10/02/mac-osx-capitan/index.html">
+  <meta property="og:title" content="Tips For Front-End —— LiveReload">
+  <meta property="og:url" content="http://yoursite.com/2015/10/26/web-hot-load/index.html">
   <meta property="og:site_name" content="VectorHo">
-  <meta property="og:description" content="前奏
-总所周知，app store 国内下载速度实在不敢恭维，然而系统升级一般没个一天是搞不定的（心中有一万只草泥马在奔腾ಥ_ಥ）。
-  但是，你们天真地以为这就能难倒技术控了么？23333…
-今天小弟就给看官们带来一次全新体验。
-原理
-抓取苹果官方下载链接，离线到第三方服务器分流。再使用第三方下载工具下载系统.pkg文件。搭建本地静态文件server，
-  将苹果官方的下载地址解析到本地的服务器">
-  <meta property="og:image" content="http://yoursite.com/2015/10/02/mac-osx-capitan/hosts.png">
-  <meta property="og:image" content="http://yoursite.com/2015/10/02/mac-osx-capitan/pkg.jpeg">
-  <meta property="og:updated_time" content="2015-10-02T01:02:00.000Z">
+  <meta property="og:description" content="ps：下文我将打算用fe代替Front-End一词。
+时间过得真快，眨眼一周又过去了。今天我们来侃侃liveReload。聊之前先来扯扯开发家常。
+  通常来说，Web页面开发的流程大致是这样的：设计师提供设计稿，通常是psd格式。然后fe开发人员来手工的将图片转换为对应的HTML+CSS，常常还需要在各个浏览器中调试等。
+  一般，设计师还会提供色卡，或至少前景色、背景色、高亮色的值给开发人员。">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/workflow-resized.png">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/two-displays-resized.png">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/browserSync-proxy-1.png">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/browserSync-proxy-2.png">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/browserSync-manual.png">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/browserSync-ws.png">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/browserSync-ui-1.png">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/browserSync-ui-2.png">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/browserSync-bug-1.jpg">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/browserSync-bug-2.jpg">
+  <meta property="og:image" content="http://yoursite.com/2015/10/26/web-hot-load/browserSync-bug-3.jpg">
+  <meta property="og:updated_time" content="2015-10-26T15:48:52.000Z">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="OS X El Capitan 快速更新">
-  <meta name="twitter:description" content="前奏
-总所周知，app store 国内下载速度实在不敢恭维，然而系统升级一般没个一天是搞不定的（心中有一万只草泥马在奔腾ಥ_ಥ）。
-  但是，你们天真地以为这就能难倒技术控了么？23333…
-今天小弟就给看官们带来一次全新体验。
-原理
-抓取苹果官方下载链接，离线到第三方服务器分流。再使用第三方下载工具下载系统.pkg文件。搭建本地静态文件server，
-  将苹果官方的下载地址解析到本地的服务器">
+  <meta name="twitter:title" content="Tips For Front-End —— LiveReload">
+  <meta name="twitter:description" content="ps：下文我将打算用fe代替Front-End一词。
+时间过得真快，眨眼一周又过去了。今天我们来侃侃liveReload。聊之前先来扯扯开发家常。
+  通常来说，Web页面开发的流程大致是这样的：设计师提供设计稿，通常是psd格式。然后fe开发人员来手工的将图片转换为对应的HTML+CSS，常常还需要在各个浏览器中调试等。
+  一般，设计师还会提供色卡，或至少前景色、背景色、高亮色的值给开发人员。">
 
 
   <script type="text/javascript" id="hexo.configuration">
@@ -83,7 +83,7 @@
     };
   </script>
 
-  <title> OS X El Capitan 快速更新 | VectorHo </title>
+  <title> Tips For Front-End —— LiveReload | VectorHo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -261,7 +261,7 @@
           
           
             
-              OS X El Capitan 快速更新
+              Tips For Front-End —— LiveReload
             
           
         </h1>
@@ -270,8 +270,8 @@
                 <div class="post-meta">
                   <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-10-02T07:26:19+08:00" content="2015-10-02">
-            2015-10-02
+          <time itemprop="dateCreated" datetime="2015-10-26T00:01:15+08:00" content="2015-10-26">
+            2015-10-26
           </time>
         </span>
 
@@ -280,8 +280,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/mac/" itemprop="url" rel="index">
-                  <span itemprop="name">mac</span>
+                <a href="/categories/web技术/" itemprop="url" rel="index">
+                  <span itemprop="name">web技术</span>
                   </a>
                   </span>
 
@@ -296,8 +296,8 @@
 
                   <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/10/02/mac-osx-capitan/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/02/mac-osx-capitan/" itemprop="commentsCount"></span>
+              <a href="/2015/10/26/web-hot-load/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/26/web-hot-load/" itemprop="commentsCount"></span>
                   </a>
                   </span>
 
@@ -311,106 +311,126 @@
 
 
 
-                <span itemprop="articleBody"><h2 id="前奏">前奏</h2>
-<p>总所周知，<a href="#">app store</a> 国内下载速度实在不敢恭维，然而系统升级一般没个一天是搞不定的（心中有一万只草泥马在奔腾ಥ_ಥ）。
-  <br>但是，你们天真地以为这就能难倒技术控了么？23333…</p>
-<p>今天小弟就给看官们带来一次全新体验。</p>
-<h2 id="原理">原理</h2>
-<p>抓取苹果官方下载链接，离线到第三方服务器分流。再使用第三方下载工具下载系统<code>.pkg</code>文件。搭建本地静态文件<code>server</code>，
-  <br>将苹果官方的下载地址解析到本地的服务器，从而实现快速下载安装。</p>
-<p>抓取工具首推charles（本人和charles不存在隶属关系^.^）。</p>
-<p><code>ps</code>：以上适用于 El Capitan 更新慢的用户，有百兆光纤的用户可忽略。</p>
-<a id="more"></a>
-<h2 id="实践">实践</h2>
-<p>相信实践出真理。</p>
-<h3 id="抓取官方下载链接">抓取官方下载链接</h3>
-<p>由于前段时间的 Xcode Ghost 影响，不能再信任第三方的网盘， 通过 Charles 抓取到的链接如下：
-  <br><a href="http://osxapps.itunes.apple.com/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/ftk3252456602304584541.pkg" target="_blank" rel="external">http://osxapps.itunes.apple.com/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/ftk3252456602304584541.pkg</a></p>
-<p><code>ps</code>：为了安全性最好自己抓包获取此下载地址，后面的 hostname、 path 和自己抓取的链接对应。</p>
-<h3 id="下载-pkg文件">下载.pkg文件</h3>
-<p>抓取到苹果官方的下载链接后，可以先离线到百度云分流我们可以通过第三方下载工具下载 .pkg 文件，下载工具自备。
-  <br>下载完成后文件是无法直接安装的，所以我们要准备欺骗 App Store 把静态文件 server 映射到本地。
-  <br>下面要做的就是搭建本地静态文件 server 替换苹果官方的 server。</p>
-<h3 id="搭建静态文件server">搭建静态文件server</h3>
-<p>搭建本地静态资源服务的方法太多了，e.g. 现成的就有nginx、apache；程序有 nodejs、python、java etc.
-  <br>本教程选择熟悉的<a href="http://expressjs.com/" target="_blank" rel="external">express</a>，只需一个中间件即可搞定，搭建node环境，不再赘述。</p>
-<h3 id="分析url">分析url</h3>
-<p>url格式：
-  <br>
-  <figure class="highlight avrasm">
-    <table>
-      <tr>
-        <td class="code"><pre><span class="line"><span class="label">protocol:</span>// hostname[:port]/path[?query]<span class="preprocessor">#hash</span></span>
+                <span itemprop="articleBody"><p><strong>ps</strong>：下文我将打算用<code>fe</code>代替<code>Front-End</code>一词。</p>
+<p>时间过得真快，眨眼一周又过去了。今天我们来侃侃liveReload。聊之前先来扯扯开发家常。
+  <br>通常来说，Web页面开发的流程大致是这样的：设计师提供设计稿，通常是psd格式。然后fe开发人员来手工的将图片转换为对应的HTML+CSS，常常还需要在各个浏览器中调试等。
+  <br>一般，设计师还会提供色卡，或至少前景色、背景色、高亮色的值给开发人员。如果没有的话，开发人员会用到一些工具如colorpicker,ruler之类来确保最终的效果和设计稿是一致的。如果你观察过此开发的工作流程的话，你会发现基本的上是这样的：编写HTML，CSS，保存修改内容，切换到浏览器窗口，按F5或者Ctrl-R刷新，然后对比设计稿和实现，如果发现不一致的地方，再切换到编辑器修改代码，反复操作。开发时间长了，效率必定受到影响。</p>
+<h2 id="LiveReload">LiveReload</h2>
+<p>liveReload应该是fe比较关心技术了，有了这个liveReload技术，将大大提高fe效率。别急，我知道还没说liveReload是什么! T_T
+  <br>何谓liveReload，其实说白了就是监听资源文件变动让浏览器实时自动刷新，理想状态下reload应该是replace —— 实时替换，用资源局部变化方案代替全部重载。也是热门的<code>hot load</code>技术，比如下文提到的webpack就提供了一套成熟<code>hot load</code>的解决方案。</p>
+<h2 id="Workflow">Workflow</h2>
+<p>有了LiveReload技术后，建立高效的开发流程简直轻而易举：当你修改保存某个文件，浏览器都会自动刷新或替换变化。这样的快速反馈可以告诉我们下一步如何修改：将背景色调整的再淡一点，还是把会h2的字体变得更大，或者图片和文字的上边缘没有对齐 etc.
+  <br><code>实时反馈，点滴前进</code>。如果你有双显示器效果就更佳了😄，一台显示PSD设计稿，一台显示编辑器和浏览器，这样调试无非是每个前端的天堂模式。
+  <br>ps：为了加强理解提供效果图，btw效果图来自互联网！
+  <br><img src="/2015/10/26/web-hot-load/workflow-resized.png" alt="[workflow]" title="[workflow]">
+  <br><img src="/2015/10/26/web-hot-load/two-displays-resized.png" alt="[two-displays]" title="[two-displays]"></p>
+<h2 id="实现方案">实现方案</h2>
+<p>下面，我将给大家介绍我熟悉的三种方案。</p>
+<h3 id="LiveReload插件_+_Guard">LiveReload插件 + Guard</h3>
+<p>上文提到的频繁的F5刷新，可以通过<a href="https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei" target="_blank" rel="external">LiveReload插件</a> + <a href="https://github.com/guard/guard" target="_blank" rel="external">Guard</a>两个工具的组合来解决。<a href="https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei" target="_blank" rel="external">LiveReload插件</a>是一个浏览器的插件，通过协议与后台的服务器进行通信。当后台文件发生变化时，
+  <a href="https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei" target="_blank" rel="external">LiveReload插件</a>会自动刷新页面。<code>Guard</code>会使用操作系统的API来感知本地文件的变化，当文件变化后，它可以通知<code>LiveReload</code>进行刷新，当然<code>Guard</code>可以做其他一些事情，比如监听less文件，当发生变化时，自动编译css等。
+    <br>由于此方案不是最佳方案，就不再赘述，有兴趣的童鞋可以自行google，查阅相关资料。缺点：这种方式需要先给浏览器安装<a href="https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei" target="_blank" rel="external">LiveReload插件</a>。</p>
+<h3 id="Browsersync_+_gulp">Browsersync + gulp</h3>
+<p>假如你恰好使用的是gulp作为fe工作流开发，假如你恰好为开发效率烦恼着。哈哈，不用担心，我觉得这套liveReload技术就是为你装备的。这里假设的前提是大家熟悉gulp基本使用。
+  <br>首先确立一个大致思路：</p>
+<ul>
+  <li>
+    <p>gulp监听静态资源，根据自己的业务情况实现监听，当有文件变化即调用Browsersync提供的API；</p>
+    <figure class="highlight coffee">
+      <table>
+        <tr>
+          <td class="code"><pre><span class="line">...</span>
+                <br><span class="line"><span class="built_in">module</span>.exports = gulp = <span class="built_in">require</span> <span class="string">'gulp'</span></span>
+                <br><span class="line">browserSync = <span class="built_in">require</span> <span class="string">'browser-sync'</span></span>
+                <br><span class="line"><span class="comment"># 声明任务</span></span>
+                <br><span class="line">gulp.task <span class="string">'hot'</span>, <span class="function">-&gt;</span></span>
+                <br><span class="line">  <span class="comment"># 初始化browserSync工具</span></span>
+                <br><span class="line">  browserSync.init</span>
+                <br><span class="line">    <span class="attribute">ui</span>: <span class="comment"># browserSync管理界面 http://localhost:8082</span></span>
+                <br><span class="line">      <span class="attribute">port</span>: <span class="number">8082</span></span>
+                <br><span class="line">      <span class="attribute">weinre</span>: <span class="attribute">port</span>: <span class="number">9092</span></span>
+                <br><span class="line">    <span class="attribute">proxy</span>: <span class="comment"># 转发server</span></span>
+                <br><span class="line">      <span class="comment"># middleware: (req, res, next) -&gt;</span></span>
+                <br><span class="line">      <span class="attribute">target</span>: <span class="string">"localhost:3100"</span></span>
+                <br><span class="line">    <span class="attribute">startPath</span>: <span class="string">'/index.html?token=jytpsm1433227719&amp;site_id=10001'</span> <span class="comment"># 弹出首页</span></span>
+                <br><span class="line">    <span class="attribute">ghostMode</span>: <span class="literal">false</span> <span class="comment"># 关闭自动模拟事件，这是一个坑</span></span>
+                <br><span class="line">  <span class="built_in">console</span>.log <span class="string">"开始监听资源文件..."</span></span>
+                <br><span class="line">  gulp.watch <span class="string">'less/**/*.less'</span>, <span class="function">-&gt;</span></span>
+                <br><span class="line">    <span class="built_in">console</span>.log <span class="string">"less文件重新加载..."</span></span>
+                <br><span class="line">    browserSync.reload()</span>
+                <br><span class="line">  gulp.watch <span class="string">'js/**/*.&#123;js,html,mustache&#125;'</span>, <span class="function">-&gt;</span></span>
+                <br><span class="line">    <span class="built_in">console</span>.log <span class="string">"组件文件重新加载..."</span></span>
+                <br><span class="line">    browserSync.reload()</span>
+                <br><span class="line">  gulp.watch <span class="string">'static/runtime/**/*.&#123;js&#125;'</span>, <span class="function">-&gt;</span></span>
+                <br><span class="line">    <span class="built_in">console</span>.log <span class="string">"runtime文件重新加载..."</span></span>
+                <br><span class="line">    browserSync.reload()</span>
+                <br><span class="line">...</span>
                 <br>
                 </pre>
                 </td>
                 </tr>
                 </table>
                 </figure>
-                </p>
-                <p>在这里我们只需要找到 hostname 和 path；</p>
-                <figure class="highlight cpp">
-                  <table>
-                    <tr>
-                      <td class="code"><pre><span class="line">hostname : osxapps.itunes.apple.com</span><br><span class="line">path     : /apple-assets-us-<span class="built_in">std</span>-<span class="number">000001</span>/Purple3/v4/<span class="number">74</span>/d2/<span class="number">82</span>/<span class="number">74</span>d28291-<span class="number">9</span>db9-<span class="number">7</span>ae2-<span class="number">305</span>d-<span class="number">9</span>b8b3f5fd463/</span><br></pre></td>
-                    </tr>
-                  </table>
-                </figure>
-                <h3 id="修改hosts">修改hosts</h3>
-                <figure class="highlight bash">
-                  <table>
-                    <tr>
-                      <td class="code"><pre><span class="line">sudo vi /etc/hosts</span><br></pre></td>
-                    </tr>
-                  </table>
-                </figure>
-                <img src="/2015/10/02/mac-osx-capitan/hosts.png" alt="[hosts]" title="[hosts]">
-                <p>如此一来，系统 DNS 将把 osxapps.itunes.apple.com 解析到本地。</p>
-                <h3 id="创建express项目">创建express项目</h3>
-                <p>万事俱备，只欠exprss。</p>
-                <figure class="highlight bash">
-                  <table>
-                    <tr>
-                      <td class="code"><pre><span class="line">$ <span class="built_in">cd</span> your-project // 任意名称</span><br><span class="line">$ mkdir static</span><br><span class="line">$ npm install express</span><br></pre></td>
-                    </tr>
-                  </table>
-                </figure>
-                <p>手动将下载好的.pkg文件拷贝到项目的static文件夹，在项目文件夹根目录创建server.js：</p>
-                <figure class="highlight js">
-                  <table>
-                    <tr>
-                      <td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"><span class="comment">// 映射资源</span></span><br><span class="line">app.use(<span class="string">'/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/'</span>, express.static(path.resolve(<span class="string">'.'</span>, <span class="string">'static'</span>)));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">80</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Server Listen on port 80."</span>);</span><br></pre></td>
-                    </tr>
-                  </table>
-                </figure>
-                <p>启动程序
-                  <br>
-                  <figure class="highlight bash">
+                </li>
+                <li>
+                  <p>Browsersync负责调用API刷新浏览器或者替换变化，访问管理界面，还能进一步调试页面、多设备同步效果：</p>
+                  <figure class="highlight coffee">
                     <table>
                       <tr>
-                        <td class="code"><pre><span class="line">$ <span class="built_in">cd</span> your-project</span><br><span class="line">$ sudo node server.js</span><br></pre></td>
+                        <td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment"># 重新加载资源</span></span><br><span class="line">browserSync.reload()</span><br><span class="line">...</span><br></pre></td>
                       </tr>
                     </table>
                   </figure>
+                </li>
+                </ul>
+                <p>更多文档：<a href="http://www.browsersync.cn/docs" target="_blank" rel="external">http://www.browsersync.cn/docs</a></p>
+                <ul>
+                  <li>开发模式下，主进程开启liveReload功能，只需要调用gulp提供的api即可：
+                    <figure class="highlight coffee">
+                      <table>
+                        <tr>
+                          <td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">if</span> process.env.NODE_ENV != <span class="string">'production'</span></span><br><span class="line">  gulp = <span class="built_in">require</span> <span class="string">'./gulpfile'</span></span><br><span class="line">  gulp.start <span class="string">'hot'</span></span><br><span class="line">...</span><br></pre></td>
+                        </tr>
+                      </table>
+                    </figure>
+                  </li>
+                </ul>
+                <p><code>ps：</code>此方案还能进一步优化，比如浏览器不必实时刷新，仅改变页面元素变化即可，当然Browsersync插件-<a href="http://www.browsersync.io/docs/options/#option-plugins" target="_blank" rel="external">bs-html-injector</a>已经实现了我们想要的，不必重复造轮子了。</p>
+                <h3 id="Webpack-Hot技术">Webpack-Hot技术</h3>
+                <p> 后续…</p>
+                <h2 id="技术原理">技术原理</h2>
+                <p>再来说说上文介绍的三种方案背后的原理，首先要明确这些技术的目标是什么，简单地说就是后端监听到资源被修改立刻通知浏览器。带着问题去试探技术背后的原理会比较容易理解。</p>
+                <h3 id="browserSync">browserSync</h3>
+                <p><code>1、browserSync 工作模式：</code>
+                  <br>browserSync本身就内置一个静态文件服务器，此服务器不仅可以脱离业务逻辑直接管理静态资源，并且可以不处理业务逻辑代理到下游服务，前者是手动模式，后者是代理模式。代理模式是方便了对接已有业务的情况。
+                  <br><code>2、browserSync 初始化：</code>
+                  <br>browserSync一旦配置成功便会初始化一个server实例，以便browserSync服务与浏览器通信，通信协议用的是websocket协议实现长连接通信。
+                  <br><code>3、proxy模式：</code>
+                  <br> 选择代理模式，browserSync将完全接管后端入口，初始化完毕后会启动指定网页入口，页面渲染时将在
+
+                  <body>里注入一段script脚本，即ws协议的client，用来与后端server通信。
+                    <br> <img src="/2015/10/26/web-hot-load/browserSync-proxy-1.png" alt="[proxy模式-1]" title="[proxy模式-1]">
+                    <br> <img src="/2015/10/26/web-hot-load/browserSync-proxy-2.png" alt="[proxy模式-2]" title="[proxy模式-2]">
+                    <br><code>4、手动模式：</code>
+                    <br> 选择手动模式，browserSync将会提示你手动插入script脚本，方便建立ws长连接。
+                    <br> <img src="/2015/10/26/web-hot-load/browserSync-manual.png" alt="[Manual模式]" title="[Manual模式]">
+                    <br><code>5、browserSync 实现通信方式：</code>
+                    <br> 由图可以看到当html页面渲染时，browserSync注入script会将和后端服务建立websocket长连接服务。
+                    <br> <img src="/2015/10/26/web-hot-load/browserSync-ws.png" alt="[websocket]" title="[websocket]">
+                    <br><code>6、browserSync UI管理：</code>
+                    <br> UI管理界面很好地给开发人员提供管理界面，其原理就是调用browserSync提供的api，然后通过ws协议让浏览器实时响应。 e.g. 比如向页面注入weinre服务 etc.
+                    <br> <img src="/2015/10/26/web-hot-load/browserSync-ui-1.png" alt="[ui-1]" title="[ui-1]">
+                    <br> <img src="/2015/10/26/web-hot-load/browserSync-ui-2.png" alt="[ui-2]" title="[ui-2]">
+                    <br><code>7、FAQ</code>
+                    <br> 这里说的是别人踩过的坑，记录的目的是省得再走弯路。
+                    <br> <img src="/2015/10/26/web-hot-load/browserSync-bug-1.jpg" alt="[bug-1]" title="[bug-1]">
+                    <br> <img src="/2015/10/26/web-hot-load/browserSync-bug-2.jpg" alt="[bug-2]" title="[bug-2]">
+                    <br> <img src="/2015/10/26/web-hot-load/browserSync-bug-3.jpg" alt="[bug-3]" title="[bug-3]"></body>
                 </p>
-                <p>此时你可以在浏览器中测试，在地址栏输入我们抓取的苹果官方的下载链接，如果一切配置都正确，你应该会看到百兆的下载速度。
-                  <br><a href="http://osxapps.itunes.apple.com/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/ftk3252456602304584541.pkg" target="_blank" rel="external">http://osxapps.itunes.apple.com/apple-assets-us-std-000001/Purple3/v4/74/d2/82/74d28291-9db9-7ae2-305d-9b8b3f5fd463/ftk3252456602304584541.pkg</a></p>
-                <img src="/2015/10/02/mac-osx-capitan/pkg.jpeg" alt="[下载速度]" title="[下载速度]">
-                <h3 id="更新_El_Capitan">更新 El Capitan</h3>
-                <p>打开 App Store 找到 OS X El Capitan 的更新按钮, 点击更新按钮。稍等片刻，下载完成后就会弹出安装页面。
-                  <br>安装过程需要一段时间,冲杯咖啡等待即可。</p>
-                <p>enjoy yourself …</p>
-                <h3 id="还原hosts">还原hosts</h3>
-                <p>记得一定要还原hosts设置，不然以后 App Store 就更新不了，方法就是删除掉上文配置的映射，保存即可。</p>
-                <h2 id="引申">引申</h2>
-                <p>如果有vps的话，也下载到自己的vps上，然后将苹果的下载地址解析到vps ，原理相通。</p>
-                <h2 id="参考">参考</h2>
-                <p><a href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E7%AC%A6" target="_blank" rel="external">URL</a>
-                  <br><a href="http://coolshell.cn/articles/1480.html" target="_blank" rel="external">SimpleHTTPServer</a>
-                  <br><a href="https://zh.wikipedia.org/wiki/Hosts%E6%96%87%E4%BB%B6" target="_blank" rel="external">hosts 文件</a></p>
-                <hr>
-                <p>博客：<a href="https://vectorho.github.io" target="_blank" rel="external">https://vectorho.github.io</a>
-                  <br>作者：<a href="https://vectorho.github.io/about/" target="_blank" rel="external">Vector Ho</a></p>
+                <h3 id="webpack">webpack</h3>
+                <p>后续…</p>
+                <h2 id="总结">总结</h2>
+                <p>一个优秀技术人员应勤于思考，善于总结。绝不限定自己的思维和能力，通过不断总结完善自我知识体系；不断吸收先进技术培养出大局观是成为技术大牛必经之路！</p>
                 </span>
 
               </div>
@@ -419,7 +439,7 @@
 
                 <div class="post-tags">
 
-                  <a href="/tags/osx/" rel="tag">#osx</a>
+                  <a href="/tags/Front-End/" rel="tag">#Front-End</a>
 
                 </div>
 
@@ -428,13 +448,11 @@
                 <div class="post-nav">
                   <div class="post-nav-prev post-nav-item">
 
-                    <a href="/2015/10/11/web-nodejs-debug/" rel="prev">Node.js断言方案</a>
-
                   </div>
 
                   <div class="post-nav-next post-nav-item">
 
-                    <a href="/2015/09/27/web-npm_publish/" rel="next">Tips For npm — npm publish</a>
+                    <a href="/2015/10/17/algorithm-hash/" rel="next">Hash简介</a>
 
                   </div>
                 </div>
@@ -482,7 +500,7 @@
 
         <div class="comments" id="comments">
 
-          <div class="ds-thread" data-thread-key="2015/10/02/mac-osx-capitan/" data-title="OS X El Capitan 快速更新" data-url="http://yoursite.com/2015/10/02/mac-osx-capitan/">
+          <div class="ds-thread" data-thread-key="2015/10/26/web-hot-load/" data-title="Tips For Front-End —— LiveReload" data-url="http://yoursite.com/2015/10/26/web-hot-load/">
           </div>
 
         </div>
@@ -607,22 +625,22 @@
 
               <div class="post-toc-content">
                 <ol class="nav">
-                  <li class="nav-item nav-level-2"><a class="nav-link" href="#前奏"><span class="nav-number">1.</span> <span class="nav-text">前奏</span></a></li>
-                  <li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li>
-                  <li class="nav-item nav-level-2"><a class="nav-link" href="#实践"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a>
+                  <li class="nav-item nav-level-2"><a class="nav-link" href="#LiveReload"><span class="nav-number">1.</span> <span class="nav-text">LiveReload</span></a></li>
+                  <li class="nav-item nav-level-2"><a class="nav-link" href="#Workflow"><span class="nav-number">2.</span> <span class="nav-text">Workflow</span></a></li>
+                  <li class="nav-item nav-level-2"><a class="nav-link" href="#实现方案"><span class="nav-number">3.</span> <span class="nav-text">实现方案</span></a>
                     <ol class="nav-child">
-                      <li class="nav-item nav-level-3"><a class="nav-link" href="#抓取官方下载链接"><span class="nav-number">3.1.</span> <span class="nav-text">抓取官方下载链接</span></a></li>
-                      <li class="nav-item nav-level-3"><a class="nav-link" href="#下载-pkg文件"><span class="nav-number">3.2.</span> <span class="nav-text">下载.pkg文件</span></a></li>
-                      <li class="nav-item nav-level-3"><a class="nav-link" href="#搭建静态文件server"><span class="nav-number">3.3.</span> <span class="nav-text">搭建静态文件server</span></a></li>
-                      <li class="nav-item nav-level-3"><a class="nav-link" href="#分析url"><span class="nav-number">3.4.</span> <span class="nav-text">分析url</span></a></li>
-                      <li class="nav-item nav-level-3"><a class="nav-link" href="#修改hosts"><span class="nav-number">3.5.</span> <span class="nav-text">修改hosts</span></a></li>
-                      <li class="nav-item nav-level-3"><a class="nav-link" href="#创建express项目"><span class="nav-number">3.6.</span> <span class="nav-text">创建express项目</span></a></li>
-                      <li class="nav-item nav-level-3"><a class="nav-link" href="#更新_El_Capitan"><span class="nav-number">3.7.</span> <span class="nav-text">更新 El Capitan</span></a></li>
-                      <li class="nav-item nav-level-3"><a class="nav-link" href="#还原hosts"><span class="nav-number">3.8.</span> <span class="nav-text">还原hosts</span></a></li>
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#LiveReload插件_+_Guard"><span class="nav-number">3.1.</span> <span class="nav-text">LiveReload插件 + Guard</span></a></li>
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#Browsersync_+_gulp"><span class="nav-number">3.2.</span> <span class="nav-text">Browsersync + gulp</span></a></li>
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack-Hot技术"><span class="nav-number">3.3.</span> <span class="nav-text">Webpack-Hot技术</span></a></li>
                     </ol>
                   </li>
-                  <li class="nav-item nav-level-2"><a class="nav-link" href="#引申"><span class="nav-number">4.</span> <span class="nav-text">引申</span></a></li>
-                  <li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li>
+                  <li class="nav-item nav-level-2"><a class="nav-link" href="#技术原理"><span class="nav-number">4.</span> <span class="nav-text">技术原理</span></a>
+                    <ol class="nav-child">
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#browserSync"><span class="nav-number">4.1.</span> <span class="nav-text">browserSync</span></a></li>
+                      <li class="nav-item nav-level-3"><a class="nav-link" href="#webpack"><span class="nav-number">4.2.</span> <span class="nav-text">webpack</span></a></li>
+                    </ol>
+                  </li>
+                  <li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li>
                 </ol>
               </div>
 

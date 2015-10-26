@@ -44,27 +44,27 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-  <meta name="description" content="英文原文：http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/
+  <meta name="description" content="译文：http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/
 大家都知道每种编程语言里都提供Hash结构，不过对于Hash的知识，大家是不是觉得很抽象？
-  Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不">
+  Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不一样">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Hash简介">
   <meta property="og:url" content="http://yoursite.com/2015/10/17/algorithm-hash/index.html">
   <meta property="og:site_name" content="VectorHo">
-  <meta property="og:description" content="英文原文：http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/
+  <meta property="og:description" content="译文：http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/
 大家都知道每种编程语言里都提供Hash结构，不过对于Hash的知识，大家是不是觉得很抽象？
-  Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不">
+  Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不一样">
   <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash1.jpg">
   <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash2.jpg">
   <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash3.jpg">
   <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash4.jpg">
   <meta property="og:image" content="http://yoursite.com/2015/10/17/algorithm-hash/hash5.jpg">
-  <meta property="og:updated_time" content="2015-10-18T08:24:54.000Z">
+  <meta property="og:updated_time" content="2015-10-25T16:02:16.000Z">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Hash简介">
-  <meta name="twitter:description" content="英文原文：http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/
+  <meta name="twitter:description" content="译文：http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/
 大家都知道每种编程语言里都提供Hash结构，不过对于Hash的知识，大家是不是觉得很抽象？
-  Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不">
+  Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不一样">
 
 
   <script type="text/javascript" id="hexo.configuration">
@@ -302,7 +302,7 @@
 
 
 
-                <span itemprop="articleBody"><p>英文原文：<a href="http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/" target="_blank" rel="external">http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/</a></p>
+                <span itemprop="articleBody"><p>译文：<a href="http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/" target="_blank" rel="external">http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/</a></p>
 <p>大家都知道每种编程语言里都提供Hash结构，不过对于Hash的知识，大家是不是觉得很抽象？
   <br>Hash结构在内存到底是怎么存放的？Hash算法使用场景？带着这些问题来读读此文，可能将会有不一样的收获。
   <br>到底哈希函数是CPU密集型的并且应该维持而优化。然而，大部分哈希表的内部机制只关心内存效率和I/O访问，本文仅仅是<a href="http://codecapsule.com/2013/05/13/implementing-a-key-value-store-part-5-hash-table-implementations/" target="_blank" rel="external">《Implementing a Key-Value Store》</a>读书笔记，
@@ -463,6 +463,8 @@ java里的hashMap就是这样结构，负载因子是用来决定桶bucket大小
                 <div class="post-nav">
                   <div class="post-nav-prev post-nav-item">
 
+                    <a href="/2015/10/26/web-hot-load/" rel="prev">Tips For Front-End —— LiveReload</a>
+
                   </div>
 
                   <div class="post-nav-next post-nav-item">
@@ -555,7 +557,7 @@ java里的hashMap就是这样结构，负载因子是用来决定桶bucket大小
             <nav class="site-state motion-element">
               <div class="site-state-item site-state-posts">
                 <a href="/archives">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -569,7 +571,7 @@ java里的hashMap就是这样结构，负载因子是用来决定桶bucket大小
 
               <div class="site-state-item site-state-tags">
                 <a href="/tags">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -620,7 +622,11 @@ java里的hashMap就是这样结构，负载因子是用来决定桶bucket大小
               </span>
 
               <span class="links-of-author-item">
-              <a href="http://toutiao.io/" target="_blank">开发者头条</a>
+              <a href="http://toutiao.io" target="_blank">开发者头条</a>
+              </span>
+
+              <span class="links-of-author-item">
+              <a href="http://www.infoq.com/cn" target="_blank">infoq</a>
               </span>
 
 
